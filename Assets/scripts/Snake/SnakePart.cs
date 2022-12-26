@@ -112,8 +112,11 @@ public class SnakePart : MonoBehaviour
         newBodyPart.direction = direction;
         newBodyPart.snake = snake;
 
+
         newBodyPart.init();
         newBodyPart.moveSnakePart();
+
+        newBodyPart.changeSpeed(snakeMove.speed);
 
         try
         {

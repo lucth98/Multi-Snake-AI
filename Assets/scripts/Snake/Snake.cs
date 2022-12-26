@@ -55,11 +55,7 @@ public class Snake : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            changeSpeed(0f);
-
-        }
+    
 
         if (Input.GetKeyDown(KeyCode.P))
         {

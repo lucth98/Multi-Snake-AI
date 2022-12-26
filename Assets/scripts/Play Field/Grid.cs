@@ -94,6 +94,8 @@ public class Grid : MonoBehaviour
         initSnake();
     }
 
+   
+
     private void init()
     {
         drawGrid();

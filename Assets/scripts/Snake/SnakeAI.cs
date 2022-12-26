@@ -19,6 +19,7 @@ public class SnakeAI : Agent
     {
         cameraSensor = GetComponent<CameraSensorComponent>();
         head = GetComponent<SnakeHead>();
+        snake = head.snake;
 
         cameraSensor.Camera = Camera.main;
     }
@@ -27,7 +28,8 @@ public class SnakeAI : Agent
 
     public override void OnEpisodeBegin()
     {
-        snake.reset();
+ 
+       // snake.reset();
 
 
     }
@@ -50,6 +52,8 @@ public class SnakeAI : Agent
 
         AddReward(-50.0f);
         // Testen: Vieleicht straffe erhöhen mit länge zb strafe = -länge der Schlange -50
+
+        snake.reset();
         EndEpisode();
     }
 

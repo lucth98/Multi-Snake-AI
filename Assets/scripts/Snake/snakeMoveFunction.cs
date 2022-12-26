@@ -7,14 +7,25 @@ public class snakeMoveFunction : MonoBehaviour
     //diese Klasse ist für eine flüssige bewegung der Schlangenteile zuständig
     //info: https://docs.unity3d.com/ScriptReference/Vector3.MoveTowards.html
 
+
+
+    public float speed = 2.0f;
+
     public SnakePart snakePart { get; set; }
 
-    public float speed { get; set; }
+  //  public float speed { get; set; }
 
     private Vector2 targedVector;
 
     private bool move = false;
 
+
+    public void setSpeed(float speed)
+    {
+        this.speed = speed; 
+    }
+
+    public float getSpeed() { return speed; }
 
     public void moveToSmoothly(Vector2 targetPosition)
     {
@@ -38,7 +49,7 @@ public class snakeMoveFunction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        speed = 2.0f;
+     //   speed = 2.0f;
     }
 
     // Update is called once per frame

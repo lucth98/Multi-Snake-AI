@@ -8,7 +8,7 @@ public class SnakeHead : SnakePart
 
     public override void collisionAction()
     {
-        snake.changeSpeed(0f);
+        //snake.changeSpeed(0f);
         AI.aiDeath();
     }
 
