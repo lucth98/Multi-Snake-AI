@@ -6,11 +6,15 @@ using System;
 [System.Serializable]
 public class Grid : MonoBehaviour
 {
-    public Snake snake { get; private set; }
+    // public Snake snake { get; private set; }
+
+    public Snake[] snakes { get; private set; }
 
     public int height = 60;
 
     public int with = 60;
+
+    public int numberOfSnaks = 1;
 
     public int numberOfIncreaseSizeTokens = 1;
 
@@ -94,29 +98,49 @@ public class Grid : MonoBehaviour
         initSnake();
     }
 
-   
+
 
     private void init()
     {
         drawGrid();
         makeBarres();
         addTokens();
-       // initSnake();
+
     }
 
     private void initSnake()
     {
-        snake = new Snake();
-        snake.init(with / 2, height / 2, this);
+        snakes = new Snake[numberOfSnaks];
 
-        //ToDO RandPos
+        for (int i = 0; i < numberOfSnaks; i++)
+        {
+            System.Random random = new System.Random();
+            int x;
+            int y;
+            Tile tile;
+            do
+            {
+                x = random.Next(0, with);
+                y = random.Next(0, height);
 
+                tile = getTile(x, y);
+
+            } while (tile.snake != null || tile.token != null || tile.isThisBarrier());
+            snakes[i] = new Snake();
+            snakes[i].init(x, y, this);
+
+        }
+
+        addSnakeControlls();
     }
 
     // Update is called once per frame
     void Update()
     {
-        snake.turn();
+        for (int i = 0; i < snakes.Length; i++)
+        {
+            snakes[i].turn();
+        }
     }
 
 
@@ -149,26 +173,32 @@ public class Grid : MonoBehaviour
     {
         increase = Resources.Load<IncreaseSizeToken>("IncreasSizeObject");
 
-        for(int i = 0; i < numberOfIncreaseSizeTokens; i++)
+        for (int i = 0; i < numberOfIncreaseSizeTokens; i++)
         {
             addIncreaseToken();
         }
     }
 
+    private void addSnakeControlls() //for testing
+    {
+        if (snakes.Length > 1)
+        {
+            snakes[0].setTurnButtons(KeyCode.Q, KeyCode.E);
+            snakes[1].setTurnButtons(KeyCode.A, KeyCode.D);
+        }
+
+
+    }
+
     public void reset()
     {
-        //DoTo
-
-
         for (int x = 0; x < with; x++)
         {
             for (int y = 0; y < height; y++)
             {
-                //toDo
                 Token token = field[y, x].token;
 
-
-                if(token != null)
+                if (token != null)
                 {
                     token.deliteToken();
                 }

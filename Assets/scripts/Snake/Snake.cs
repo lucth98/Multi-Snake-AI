@@ -12,8 +12,7 @@ public class Snake : MonoBehaviour
     private KeyCode buttonTurnLeft = KeyCode.A;
     private KeyCode buttonTurnRight = KeyCode.D;
 
-    SnakeHead snakeHeadpre;// = Resources.Load<SnakeHead>("SnakeHeadObject");
-    //SnakeBody snakeBodypre = Resources.Load<SnakeBody>("SnakeBodyObject");
+    SnakeHead snakeHeadpre;
 
     private Grid Grid;
 
@@ -49,36 +48,26 @@ public class Snake : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            addSnakePart();
+        //if (Input.GetKeyDown(KeyCode.K))
+        //{
+        //    addSnakePart();
 
-        }
+        //}
 
-    
 
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            reset();
 
-        }
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    reset();
+
+        //}
     }
 
     public void addPartToList(SnakePart part)
     {
         snake.Add(part);
 
-        //AI Rewart
-        //SetReward(1.0f);
     }
-
-    //public void aiDeath()
-    //{
-    //    //AI punishment for Dying
-    //    //SetReward(-50.0f);
-
-    //    //EndEpisode();
-    //}
 
     public void addSnakePart()
     {
@@ -130,13 +119,13 @@ public class Snake : MonoBehaviour
         }
 
         //Reset Snake Head
-        Vector2 newHeadPosition = new Vector2(Grid.height/2, Grid.with/2);
+        Vector2 newHeadPosition = new Vector2(Grid.height / 2, Grid.with / 2);
         snake[0].teleportPart(newHeadPosition);
         snake[0].moveSnakePart();
         snake[0].nextElement = null;
-        
 
-        Grid.reset();       
+
+        Grid.reset();
     }
 
 
