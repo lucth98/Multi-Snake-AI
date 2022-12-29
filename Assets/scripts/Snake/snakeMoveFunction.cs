@@ -13,43 +13,51 @@ public class snakeMoveFunction : MonoBehaviour
 
     public SnakePart snakePart { get; set; }
 
-  //  public float speed { get; set; }
+    //  public float speed { get; set; }
 
     private Vector2 targedVector;
 
     private bool move = false;
 
-
     public void setSpeed(float speed)
     {
-        this.speed = speed; 
+        this.speed = speed;
     }
 
     public float getSpeed() { return speed; }
 
     public void moveToSmoothly(Vector2 targetPosition)
     {
-        //ToDO
-
+       // Debug.Log("moveToSmoothly");
         this.targedVector = targetPosition;
         move = true;
     }
 
+    public bool isMoving()
+    {
+       // Debug.Log(targedVector);
+        return move || !targedVector.Equals(Vector2.zero);
+    }
+
     public void stopMovement()
     {
+        
+        targedVector = Vector2.zero;
         move = false;
-   
+
+      //  Debug.Log("stop movement"+"targetV= "+targedVector+" move= "+ move);
     }
 
     public void startMovment()
     {
+        Debug.Log("start");
         move = true;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-     //   speed = 2.0f;
+
     }
 
     // Update is called once per frame
@@ -60,22 +68,31 @@ public class snakeMoveFunction : MonoBehaviour
 
     void movment(float time)
     {
-        if (move && targedVector != null)
+        if (!move)
         {
-            float step = speed * time;
-            //Debug.Log("Pos= " + transform.position);
-            //Debug.Log("Ziel= " + targedVector);
-            transform.position = Vector2.MoveTowards(transform.position, targedVector, step);
-
-            if (Vector2.Distance(transform.position, targedVector) < 0.01f)
-            {
-
-                Debug.Log("target reached");
-                transform.position = targedVector;
-
-                move = false;
-                snakePart.movedToPositonCallBack((int)transform.position.x, (int)transform.position.y);
-            }
+            return;
         }
+        if (targedVector == null || targedVector.Equals(Vector2.zero))
+        {
+            move = false;
+            return;
+        }
+
+       
+        float step = speed * time;
+        //Debug.Log("Pos= " + transform.position);
+        //Debug.Log("Ziel= " + targedVector);
+        transform.position = Vector2.MoveTowards(transform.position, targedVector, step);
+
+        if (Vector2.Distance(transform.position, targedVector) < 0.01f)
+        {
+
+           // Debug.Log("target reached");
+            transform.position = targedVector;
+
+            move = false;
+            snakePart.movedToPositonCallBack((int)transform.position.x, (int)transform.position.y);
+        }
+
     }
 }

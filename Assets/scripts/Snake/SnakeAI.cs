@@ -44,6 +44,10 @@ public class SnakeAI : Agent
 
     }
 
+    public void endAIEpisode()
+    {
+        EndEpisode();
+    }
 
 
     public void aiDeath()
@@ -53,8 +57,8 @@ public class SnakeAI : Agent
         AddReward(-50.0f);
         // Testen: Vieleicht straffe erhöhen mit länge zb strafe = -länge der Schlange -50
 
-        snake.reset();
-        EndEpisode();
+        //snake.reset();
+        //EndEpisode();
     }
 
     public void snakeIncreaseReward()

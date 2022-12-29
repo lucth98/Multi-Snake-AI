@@ -6,10 +6,16 @@ public class SnakeHead : SnakePart
 {
     private SnakeAI AI;
 
+    public override void aiEndEpisode()
+    {
+        AI.endAIEpisode();  
+    }
+
     public override void collisionAction()
     {
-        //snake.changeSpeed(0f);
         AI.aiDeath();
+        snake.killSnake();
+        grid.reset();
     }
 
     public override void tokenAction(Token token)

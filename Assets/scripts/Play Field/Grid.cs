@@ -108,26 +108,53 @@ public class Grid : MonoBehaviour
 
     }
 
+
+    public Vector2 getFreePostion()
+    {
+        Vector2 result = new Vector2();
+
+        System.Random random = new System.Random();
+        int x;
+        int y;
+        Tile tile;
+        do
+        {
+            x = random.Next(0, with);
+            y = random.Next(0, height);
+
+            tile = getTile(x, y);
+
+        } while (tile.snake != null || tile.token != null || tile.isThisBarrier());
+
+        result.x = x;
+        result.y = y;
+
+        return result;
+    }
+
     private void initSnake()
     {
         snakes = new Snake[numberOfSnaks];
 
         for (int i = 0; i < numberOfSnaks; i++)
         {
-            System.Random random = new System.Random();
-            int x;
-            int y;
-            Tile tile;
-            do
-            {
-                x = random.Next(0, with);
-                y = random.Next(0, height);
+            //System.Random random = new System.Random();
+            //int x;
+            //int y;
+            //Tile tile;
+            //do
+            //{
+            //    x = random.Next(0, with);
+            //    y = random.Next(0, height);
 
-                tile = getTile(x, y);
+            //    tile = getTile(x, y);
 
-            } while (tile.snake != null || tile.token != null || tile.isThisBarrier());
+            //} while (tile.snake != null || tile.token != null || tile.isThisBarrier());
+
+            Vector2 position = getFreePostion();
+
             snakes[i] = new Snake();
-            snakes[i].init(x, y, this);
+            snakes[i].init((int)position.x, (int)position.y, this);
 
         }
 
@@ -142,6 +169,20 @@ public class Grid : MonoBehaviour
             snakes[i].turn();
         }
     }
+
+    public bool checkIfAllSnakesAreDead()
+    {
+        for (int i = 0; i < snakes.Length; i++)
+        {
+            if (snakes[i].isMoving())
+            {
+                return false;
+            }
+        }
+        return true;
+
+    }
+
 
 
 
@@ -192,21 +233,37 @@ public class Grid : MonoBehaviour
 
     public void reset()
     {
-        for (int x = 0; x < with; x++)
+        Debug.Log("try reset");
+
+        if (checkIfAllSnakesAreDead())
         {
-            for (int y = 0; y < height; y++)
+
+
+            for (int x = 0; x < with; x++)
             {
-                Token token = field[y, x].token;
-
-                if (token != null)
+                for (int y = 0; y < height; y++)
                 {
-                    token.deliteToken();
+                    Token token = field[y, x].token;
+
+                    if (token != null)
+                    {
+                        token.deliteToken();
+                    }
+
                 }
-
             }
-        }
 
-        addTokens();
+            addTokens();
+
+
+            for (int i = 0; i < snakes.Length; i++)
+            {
+                snakes[i].endAIEpisode();
+                snakes[i].reset();
+            }
+
+
+        }
     }
 
 

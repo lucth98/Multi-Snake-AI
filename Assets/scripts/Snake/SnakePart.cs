@@ -16,7 +16,7 @@ public class SnakePart : MonoBehaviour
     }
 
     private Tile positonTile;
-    SnakeBody snakeBodypre;
+    private SnakeBody snakeBodypre;
 
     public Grid grid { get; set; }
     snakeMoveFunction snakeMove;
@@ -166,6 +166,12 @@ public class SnakePart : MonoBehaviour
 
     public void moveSnakePart()
     {
+        if(x ==0 && y == 0)
+        {
+            stopSnakeMovement();
+            return;
+        }
+
         int targedX = x;
         int targedY = y;
 
@@ -217,12 +223,19 @@ public class SnakePart : MonoBehaviour
         return result;
     }
 
+
+
     public virtual void tokenAction(Token token)
     {
 
     }
 
     public virtual void collisionAction()
+    {
+
+    }
+
+    public virtual void aiEndEpisode()
     {
 
     }
@@ -291,6 +304,11 @@ public class SnakePart : MonoBehaviour
     {
         positonTile.snake = null;
         Destroy(gameObject);
+    }
+
+    public bool isMoving()
+    {
+        return snakeMove.isMoving();
     }
     public void init()
     {

@@ -14,12 +14,18 @@ public class Snake : MonoBehaviour
 
     SnakeHead snakeHeadpre;
 
-    private Grid Grid;
+    private Grid grid;
+
+    public bool isMoving()
+    {
+        return snake[0].isMoving();
+    }
 
     public int getSnakeLenght()
     {
         return snake.Count;
     }
+
     public void setTurnButtons(KeyCode buttonTurnLeft, KeyCode buttonTurnRight)
     {
         this.buttonTurnLeft = buttonTurnLeft;
@@ -100,16 +106,15 @@ public class Snake : MonoBehaviour
         snake.Add(head);
 
 
-        this.Grid = grid;
+        this.grid = grid;
 
         move();
     }
 
-    public void reset()
+    private void removeBody()
     {
         if (snake.Count > 1)
         {
-
             for (int i = 1; i < snake.Count; i++)
             {
                 snake[i].deliteSnakePart();
@@ -117,17 +122,37 @@ public class Snake : MonoBehaviour
                 i--;
             }
         }
+    }
+
+    public void reset()
+    {
+      //  removeBody();
 
         //Reset Snake Head
-        Vector2 newHeadPosition = new Vector2(Grid.height / 2, Grid.with / 2);
+        Vector2 newHeadPosition = grid.getFreePostion();
         snake[0].teleportPart(newHeadPosition);
         snake[0].moveSnakePart();
         snake[0].nextElement = null;
 
 
-        Grid.reset();
+        //grid.reset();
     }
 
+    public void endAIEpisode()
+    {
+        snake[0].aiEndEpisode();
+    }
+
+    public void killSnake()
+    {
+        removeBody();
+        snake[0].teleportPart(new Vector2(0f,0f));
+        snake[0].moveSnakePart();
+        snake[0].stopSnakeMovement();
+        snake[0].stopSnakeMovement();
+        snake[0].stopSnakeMovement();
+        snake[0].stopSnakeMovement();
+    }
 
     public void makeAITurn(bool turnRight)
     {
@@ -149,5 +174,6 @@ public class Snake : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
     }
 }
