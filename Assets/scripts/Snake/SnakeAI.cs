@@ -6,13 +6,17 @@ using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
 
+//Multi Snake
 public class SnakeAI : Agent
 {
     private CameraSensorComponent cameraSensor;
+    private Grid grid;
 
     private SnakeHead head;
     private Snake snake;
 
+
+    private float lastDistanceToInceaseToken = 0.0f;
 
 
     private void init()
@@ -20,18 +24,60 @@ public class SnakeAI : Agent
         cameraSensor = GetComponent<CameraSensorComponent>();
         head = GetComponent<SnakeHead>();
         snake = head.snake;
+        grid = snake.getGrid();
 
         cameraSensor.Camera = Camera.main;
     }
 
+    
+    private float calculateDistanz()
+    {
+        Vector2 position = snake.getHeadPosition();
+
+        List<IncreaseSizeToken> tokens = grid.increaseList;
+
+        if (tokens.Count == 0)
+        {
+            return 100;
+        }
+
+        float newDistance = Vector2.Distance(position, tokens[0].getPosition());
+
+        for (int i = 0; i < tokens.Count; i++)
+        {
+            float distance = Vector2.Distance(position, tokens[0].getPosition());
+
+            if (distance < newDistance)
+            {
+                newDistance = distance;
+            }
+        }
+
+        return newDistance;
+    }
+
+    private void distanceToTokenRewart()
+    {
+
+
+        float newDistance = calculateDistanz();
+
+        if (newDistance < lastDistanceToInceaseToken)
+        {
+            AddReward(0.1f);
+        }
+        else
+        {
+            AddReward(-0.1f);
+        }
+
+        lastDistanceToInceaseToken = newDistance;
+    }
+   
 
 
     public override void OnEpisodeBegin()
     {
- 
-       // snake.reset();
-
-
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -41,6 +87,8 @@ public class SnakeAI : Agent
         //Anz an Elementen
         float snakeLenght = (float)snake.getSnakeLenght();
         sensor.AddObservation(snakeLenght);
+
+
 
     }
 
@@ -54,7 +102,7 @@ public class SnakeAI : Agent
     {
         //AI punishment for Dying
 
-        AddReward(-50.0f);
+        AddReward(-1);
         // Testen: Vieleicht straffe erhöhen mit länge zb strafe = -länge der Schlange -50
 
         //snake.reset();
@@ -71,8 +119,23 @@ public class SnakeAI : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        snake.makeAITurn(actions.DiscreteActions[0] < 0);
+        int movmentAction = actions.DiscreteActions[0];
 
+        if(movmentAction == 0)
+        {
+            Debug.Log("go Straight ahead");
+            return;
+        }
+        if(movmentAction == 1)
+        {
+            Debug.Log("turn left");
+            snake.makeAITurn(false);
+        }
+        if (movmentAction == 2)
+        {
+            Debug.Log("turn right");
+            snake.makeAITurn(true);
+        }
     }
 
     // Start is called before the first frame update

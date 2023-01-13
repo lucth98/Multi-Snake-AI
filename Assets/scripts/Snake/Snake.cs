@@ -26,6 +26,22 @@ public class Snake : MonoBehaviour
         return snake.Count;
     }
 
+    public Grid getGrid()
+    {
+        return grid;
+    }
+
+    public Vector2 getHeadPosition()
+    {
+        Vector2 position = new Vector2();
+
+        position.x = snake[0].x;
+        position.y = snake[0].y;
+
+        return position;
+
+    }
+
     public void setTurnButtons(KeyCode buttonTurnLeft, KeyCode buttonTurnRight)
     {
         this.buttonTurnLeft = buttonTurnLeft;

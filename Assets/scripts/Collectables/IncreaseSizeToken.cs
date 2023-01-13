@@ -10,8 +10,15 @@ public class IncreaseSizeToken : Token
         snake.addSnakePart();
         grid.addIncreaseToken();
         tile.token = null;
+        grid.removeIncreaseTokenFormTokenList(this);
+
+
         Destroy(gameObject);
-       // Destroy(this);
+    }
+
+    public Vector2 getPosition()
+    {
+        return transform.position;
     }
 
 

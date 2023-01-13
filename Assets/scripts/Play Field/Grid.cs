@@ -24,6 +24,8 @@ public class Grid : MonoBehaviour
 
     private IncreaseSizeToken increase;
 
+    public List<IncreaseSizeToken> increaseList { get; private set; }
+
 
     public void drawGrid()
     {
@@ -208,11 +210,21 @@ public class Grid : MonoBehaviour
         newToken.grid = this;
         tokenTile.token = newToken;
         newToken.tile = tokenTile;
+
+        increaseList.Add(newToken);
+    }
+
+    public void removeIncreaseTokenFormTokenList(IncreaseSizeToken increaseSizeToken)
+    {
+        increaseList.Remove(increaseSizeToken);
     }
 
     private void addTokens()
     {
         increase = Resources.Load<IncreaseSizeToken>("IncreasSizeObject");
+
+        increaseList = new List<IncreaseSizeToken>();
+
 
         for (int i = 0; i < numberOfIncreaseSizeTokens; i++)
         {
