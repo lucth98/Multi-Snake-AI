@@ -18,6 +18,16 @@ public class SnakeHead : SnakePart
         grid.reset();
     }
 
+    public override void makeAIDessison()
+    {
+        if (AI == null)
+        {
+            return;
+        }
+
+        AI.RequestDecision();
+    }
+
     public override void tokenAction(Token token)
     {
         token.action(snake);

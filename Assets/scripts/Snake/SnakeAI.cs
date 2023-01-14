@@ -18,7 +18,6 @@ public class SnakeAI : Agent
 
     private float lastDistanceToInceaseToken = 0.0f;
 
-
     private void init()
     {
         cameraSensor = GetComponent<CameraSensorComponent>();
@@ -27,9 +26,17 @@ public class SnakeAI : Agent
         grid = snake.getGrid();
 
         cameraSensor.Camera = Camera.main;
+
+
+
+        
     }
 
-    
+    public void enemyDethReward()
+    {
+        AddReward(1);
+    }
+
     private float calculateDistanz()
     {
         Vector2 position = snake.getHeadPosition();
@@ -58,8 +65,6 @@ public class SnakeAI : Agent
 
     private void distanceToTokenRewart()
     {
-
-
         float newDistance = calculateDistanz();
 
         if (newDistance < lastDistanceToInceaseToken)
@@ -73,11 +78,12 @@ public class SnakeAI : Agent
 
         lastDistanceToInceaseToken = newDistance;
     }
-   
+
 
 
     public override void OnEpisodeBegin()
     {
+
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -104,9 +110,6 @@ public class SnakeAI : Agent
 
         AddReward(-1);
         // Testen: Vieleicht straffe erhöhen mit länge zb strafe = -länge der Schlange -50
-
-        //snake.reset();
-        //EndEpisode();
     }
 
     public void snakeIncreaseReward()
@@ -115,18 +118,20 @@ public class SnakeAI : Agent
         // Testen: Vieleicht rewart erhöhen mit länge zb rewart = länge der Schlange
     }
 
-
+   
 
     public override void OnActionReceived(ActionBuffers actions)
     {
+        distanceToTokenRewart();
+
         int movmentAction = actions.DiscreteActions[0];
 
-        if(movmentAction == 0)
+        if (movmentAction == 0)
         {
             Debug.Log("go Straight ahead");
             return;
         }
-        if(movmentAction == 1)
+        if (movmentAction == 1)
         {
             Debug.Log("turn left");
             snake.makeAITurn(false);
