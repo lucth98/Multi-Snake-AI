@@ -72,10 +72,20 @@ public class SnakeAI : Agent
     private void distanceToTokenRewart()
     {
         float newDistance = calculateDistanz();
+        float reward = 0;
 
         if (newDistance < lastDistanceToInceaseToken)
         {
-            AddReward(0.1f);
+            if (newDistance > 1)
+            {
+
+
+                reward = 1 / newDistance;
+            }else
+            {
+                reward = 1;
+            }
+            AddReward(reward);
         }
         else
         {
@@ -124,7 +134,7 @@ public class SnakeAI : Agent
         // Testen: Vieleicht rewart erhöhen mit länge zb rewart = länge der Schlange
     }
 
-   
+
 
     public override void OnActionReceived(ActionBuffers actions)
     {
