@@ -18,11 +18,14 @@ public class Grid : MonoBehaviour
 
     public int numberOfIncreaseSizeTokens = 1;
 
+    public bool enabelHumanPlayer = false;
+
     private Tile tile;
 
     private Tile[,] field;
 
     private IncreaseSizeToken increase;
+
 
     public List<IncreaseSizeToken> increaseList { get; private set; }
 
@@ -97,7 +100,7 @@ public class Grid : MonoBehaviour
         field = new Tile[height, with];
         moveCamera();
         init();
-        initSnake();
+        initSnakes();
     }
 
 
@@ -134,33 +137,52 @@ public class Grid : MonoBehaviour
         return result;
     }
 
-    private void initSnake()
+    private void initSnakes()
     {
-        snakes = new Snake[numberOfSnaks];
+        int snakeCount = 0;
+
+        if (enabelHumanPlayer)
+        {
+            snakeCount = numberOfSnaks + 1;
+        }
+        else
+        {
+            snakeCount = numberOfSnaks;
+        }
+
+
+        snakes = new Snake[snakeCount];
 
         for (int i = 0; i < numberOfSnaks; i++)
         {
-            //System.Random random = new System.Random();
-            //int x;
-            //int y;
-            //Tile tile;
-            //do
-            //{
-            //    x = random.Next(0, with);
-            //    y = random.Next(0, height);
-
-            //    tile = getTile(x, y);
-
-            //} while (tile.snake != null || tile.token != null || tile.isThisBarrier());
+            
 
             Vector2 position = getFreePostion();
 
             snakes[i] = new Snake();
+            snakes[i].isAI = true;
             snakes[i].init((int)position.x, (int)position.y, this);
+        
 
         }
 
+        initPlayerSnake();
+
         addSnakeControlls();
+    }
+
+    private void initPlayerSnake()
+    {
+        if (enabelHumanPlayer)
+        {
+            Snake snake = new Snake();
+            snake.isAI = false;
+
+            Vector2 position = getFreePostion();
+            snake.init((int)position.x, (int)position.y, this);
+
+            snakes[snakes.Length - 1] = snake;
+        }
     }
 
     // Update is called once per frame

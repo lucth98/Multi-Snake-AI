@@ -16,6 +16,7 @@ public class Snake : MonoBehaviour
 
     private Grid grid;
 
+    public bool isAI { get; set; }
     public bool isMoving()
     {
         return snake[0].isMoving();
@@ -60,29 +61,18 @@ public class Snake : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(buttonTurnLeft))
+        if (!isAI)
         {
-            snake[0].turn(false);
+            if (Input.GetKeyDown(buttonTurnLeft))
+            {
+                snake[0].turn(false);
+            }
+            if (Input.GetKeyDown(buttonTurnRight))
+            {
+                snake[0].turn(true);
+
+            }
         }
-        if (Input.GetKeyDown(buttonTurnRight))
-        {
-            snake[0].turn(true);
-
-        }
-
-        //if (Input.GetKeyDown(KeyCode.K))
-        //{
-        //    addSnakePart();
-
-        //}
-
-
-
-        //if (Input.GetKeyDown(KeyCode.P))
-        //{
-        //    reset();
-
-        //}
     }
 
     public void addPartToList(SnakePart part)
@@ -112,7 +102,13 @@ public class Snake : MonoBehaviour
 
     public void init(int x, int y, Grid grid)
     {
-        snakeHeadpre = Resources.Load<SnakeHead>("SnakeHeadObject");
+        if (isAI)
+        {
+            snakeHeadpre = Resources.Load<SnakeHead>("SnakeHeadObject");
+        } else
+        {
+            snakeHeadpre = Resources.Load<SnakeHead>("PlayerSnakeHead");
+        }
         SnakeHead head = Instantiate(snakeHeadpre, new Vector3(x, y, -2), Quaternion.identity);
         head.direction = SnakePart.Direction.right;
         head.grid = grid;
@@ -142,7 +138,7 @@ public class Snake : MonoBehaviour
 
     public void reset()
     {
-      //  removeBody();
+        //  removeBody();
 
         //Reset Snake Head
         Vector2 newHeadPosition = grid.getFreePostion();
@@ -162,7 +158,7 @@ public class Snake : MonoBehaviour
     public void killSnake()
     {
         removeBody();
-        snake[0].teleportPart(new Vector2(0f,0f));
+        snake[0].teleportPart(new Vector2(0f, 0f));
         snake[0].moveSnakePart();
         snake[0].stopSnakeMovement();
         snake[0].stopSnakeMovement();

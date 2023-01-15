@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class SnakeHead : SnakePart
 {
@@ -8,12 +9,18 @@ public class SnakeHead : SnakePart
 
     public override void aiEndEpisode()
     {
-        AI.endAIEpisode();  
+        if (AI != null)
+        {
+            AI.endAIEpisode();
+        }
     }
 
     public override void collisionAction()
     {
-        AI.aiDeath();
+        if (AI != null)
+        {
+            AI.aiDeath();
+        }
         snake.killSnake();
         grid.reset();
     }
@@ -35,14 +42,24 @@ public class SnakeHead : SnakePart
 
         if (token is IncreaseSizeToken)
         {
-            AI.snakeIncreaseReward();
+            if (AI != null)
+            {
+                AI.snakeIncreaseReward();
+            }
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        AI = GetComponent<SnakeAI>();
+        try
+        {
+            AI = GetComponent<SnakeAI>();
+        }
+        catch (Exception e)
+        {
+
+        }
     }
 
     // Update is called once per frame
