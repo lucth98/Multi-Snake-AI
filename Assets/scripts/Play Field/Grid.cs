@@ -20,6 +20,8 @@ public class Grid : MonoBehaviour
 
     public bool enabelHumanPlayer = false;
 
+    public bool color = true;
+
     private Tile tile;
 
     private Tile[,] field;
@@ -39,6 +41,8 @@ public class Grid : MonoBehaviour
                 var newTile = Instantiate(tile, new Vector3(x, y, 1), Quaternion.identity);
 
                 newTile.name = "Tile Pos: X=" + x + " Y=" + y;
+
+                newTile.color = color;
 
                 newTile.setCollor((x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0));
 

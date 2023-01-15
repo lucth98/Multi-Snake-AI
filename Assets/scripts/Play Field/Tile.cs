@@ -7,17 +7,34 @@ public class Tile : MonoBehaviour
     private bool isBarrier = false;
     public SnakePart snake { get; set; }
     public Token token { get; set; }
+
+    public bool color { get; set; }
     public void setCollor(bool type)
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (type)
         {
-            spriteRenderer.color = new Color32(62, 250, 147, 255);
+            if (color)
+            {
+                spriteRenderer.color = new Color32(62, 250, 147, 255);
+            }
+            else
+            {
+                spriteRenderer.color = new Color32(255, 255, 255, 255);
+            }
         }
         else
         {
-            spriteRenderer.color = new Color32(137, 250, 188, 255);
+            if (color)
+            {
+                spriteRenderer.color = new Color32(137, 250, 188, 255);
+            }
+            else
+            {
+                spriteRenderer.color = new Color32(240, 240, 240, 255);
+            }
+            
         }
     }
 

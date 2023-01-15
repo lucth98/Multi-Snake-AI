@@ -241,6 +241,7 @@ MonoBehaviour:
   numberOfSnaks: 2
   numberOfIncreaseSizeTokens: 1
   enabelHumanPlayer: 0
+  color: 0
 --- !u!4 &2058470298
 Transform:
   m_ObjectHideFlags: 0
