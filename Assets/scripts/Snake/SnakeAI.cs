@@ -26,16 +26,14 @@ public class SnakeAI : Agent
         grid = snake.getGrid();
 
         cameraSensor.Camera = Camera.main;
-
-
-
-        
     }
 
     public void enemyDethReward()
     {
         AddReward(1);
     }
+
+    
 
     private float calculateDistanz()
     {

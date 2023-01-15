@@ -17,6 +17,7 @@ public class Snake : MonoBehaviour
     private Grid grid;
 
     public bool isAI { get; set; }
+    public int teamID { get; set; }
     public bool isMoving()
     {
         return snake[0].isMoving();
@@ -104,10 +105,19 @@ public class Snake : MonoBehaviour
     {
         if (isAI)
         {
-            snakeHeadpre = Resources.Load<SnakeHead>("SnakeHeadObject");
+
+            string nameOfPrefap = "SnakeHeadObject";
+            if (teamID != 0)
+            {
+                nameOfPrefap += teamID.ToString();
+            }
+
+            snakeHeadpre = Resources.Load<SnakeHead>(nameOfPrefap);
         } else
         {
-            snakeHeadpre = Resources.Load<SnakeHead>("PlayerSnakeHead");
+            string nameOfPrefap = "PlayerSnakeHead";
+           
+            snakeHeadpre = Resources.Load<SnakeHead>(nameOfPrefap);
         }
         SnakeHead head = Instantiate(snakeHeadpre, new Vector3(x, y, -2), Quaternion.identity);
         head.direction = SnakePart.Direction.right;

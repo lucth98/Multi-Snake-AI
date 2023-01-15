@@ -14,7 +14,7 @@ public class Grid : MonoBehaviour
 
     public int with = 60;
 
-    public int numberOfSnaks = 1;
+    public int numberOfSnakes = 1;
 
     public int numberOfIncreaseSizeTokens = 1;
 
@@ -53,19 +53,19 @@ public class Grid : MonoBehaviour
 
     private void makeBarres()
     {
-        for (int i = 0; i < with; i++)
+        for (int i = 0; i < with; i++) //unterer rand
         {
             getTile(i, 0).makeBarrier();
         }
-        for (int i = 0; i < height; i++)
+        for (int i = 0; i < height; i++) //linker rand
         {
             getTile(0, i).makeBarrier();
         }
-        for (int i = 0; i < with; i++)
+        for (int i = 0; i < with; i++) //oberer rand
         {
             getTile(i, height - 1).makeBarrier();
         }
-        for (int i = 0; i < with; i++)
+        for (int i = 0; i < height; i++)//rechter rand
         {
             getTile(with - 1, i).makeBarrier();
         }
@@ -97,15 +97,6 @@ public class Grid : MonoBehaviour
         return field[y, x];
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        tile = Resources.Load<Tile>("TileObject");
-        field = new Tile[height, with];
-        moveCamera();
-        init();
-        initSnakes();
-    }
 
 
 
@@ -147,23 +138,24 @@ public class Grid : MonoBehaviour
 
         if (enabelHumanPlayer)
         {
-            snakeCount = numberOfSnaks + 1;
+            snakeCount = numberOfSnakes + 1;
         }
         else
         {
-            snakeCount = numberOfSnaks;
+            snakeCount = numberOfSnakes;
         }
 
 
         snakes = new Snake[snakeCount];
 
-        for (int i = 0; i < numberOfSnaks; i++)
+        for (int i = 0; i < numberOfSnakes; i++)
         {
             
 
             Vector2 position = getFreePostion();
 
             snakes[i] = new Snake();
+            snakes[i].teamID = i+1;
             snakes[i].isAI = true;
             snakes[i].init((int)position.x, (int)position.y, this);
         
@@ -189,14 +181,7 @@ public class Grid : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        for (int i = 0; i < snakes.Length; i++)
-        {
-            snakes[i].turn();
-        }
-    }
+  
 
     public bool checkIfAllSnakesAreDead()
     {
@@ -305,5 +290,28 @@ public class Grid : MonoBehaviour
     }
 
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        if(numberOfSnakes > 10)
+        {
+            numberOfSnakes = 10;
+        }
+
+        tile = Resources.Load<Tile>("TileObject");
+        field = new Tile[height, with];
+        moveCamera();
+        init();
+        initSnakes();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        for (int i = 0; i < snakes.Length; i++)
+        {
+            snakes[i].turn();
+        }
+    }
 
 }
