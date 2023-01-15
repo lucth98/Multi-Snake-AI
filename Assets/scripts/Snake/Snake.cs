@@ -50,6 +50,10 @@ public class Snake : MonoBehaviour
         this.buttonTurnRight = buttonTurnRight;
     }
 
+    public int getSize()
+    {
+        return snake.Count;
+    }
     public void move()
     {
         snake[0].moveSnakePart();
@@ -185,6 +189,15 @@ public class Snake : MonoBehaviour
         }
     }
 
+    public void hasWonRound()
+    {
+        snake[0].hasWon();
+    }
+
+    public void hasLostRound()
+    {
+        snake[0].hasLost();
+    }
 
 
     // Start is called before the first frame update

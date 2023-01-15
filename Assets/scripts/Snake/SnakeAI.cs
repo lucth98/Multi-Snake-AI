@@ -30,10 +30,18 @@ public class SnakeAI : Agent
 
     public void enemyDethReward()
     {
-        AddReward(1);
+        AddReward(0.5f);
     }
 
-    
+    public void winnGameReward()
+    {
+        AddReward(0.5f);
+    }
+
+    public void loseGameReward()
+    {
+        AddReward(-0.5f);
+    }
 
     private float calculateDistanz()
     {

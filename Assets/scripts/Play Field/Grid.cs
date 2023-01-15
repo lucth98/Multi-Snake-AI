@@ -181,8 +181,6 @@ public class Grid : MonoBehaviour
         }
     }
 
-  
-
     public bool checkIfAllSnakesAreDead()
     {
         for (int i = 0; i < snakes.Length; i++)
@@ -195,9 +193,6 @@ public class Grid : MonoBehaviour
         return true;
 
     }
-
-
-
 
     public void addIncreaseToken()
     {
@@ -254,13 +249,86 @@ public class Grid : MonoBehaviour
 
     }
 
+    private bool gameHasEndedInADrawn()
+    {
+        int sizeOfSnake = snakes[0].getSize();
+
+        for(int i = 0; i < snakes.Length; i++)
+        {
+            if(snakes[i].getSize() != sizeOfSnake)
+            {
+                return false;
+            } 
+        }
+        return true;
+    }
+
+    private int getSizeOfLargestSnake()
+    {
+        int size = snakes[0].getSize();
+
+        for(int i = 0; i < snakes.Length; i++)
+        {
+            if(snakes[i].getSize() > size)
+            {
+                size = snakes[i].getSize();
+            }
+        }
+        return size;
+    }
+
+    private int getSizeOfSmallestSnake()
+    {
+        int size = snakes[0].getSize();
+
+        for (int i = 0; i < snakes.Length; i++)
+        {
+            if (snakes[i].getSize() < size)
+            {
+                size = snakes[i].getSize();
+            }
+        }
+        return size;
+    }
+
+    private void endGameRoundRewarts()
+    {
+
+        int sizeOfLargestSnake = getSizeOfLargestSnake();
+        int sizeOfSmalestSnake = getSizeOfSmallestSnake();
+
+        Debug.Log("winner size = " + sizeOfLargestSnake);
+        Debug.Log("loser size = " + sizeOfSmalestSnake);
+
+        for(int i = 0; i < snakes.Length; i++)
+        {
+            if(snakes[i].getSize() == sizeOfLargestSnake)
+            {
+                snakes[i].hasWonRound();
+            }
+
+            if(snakes[i].getSize() == sizeOfSmalestSnake)
+            {
+                snakes[i].hasLostRound();
+            }
+        }
+    }
+
+    public void gameRoundHasEndet()
+    {
+        if (!gameHasEndedInADrawn())
+        {
+            endGameRoundRewarts();
+        }
+    }
+
     public void reset()
     {
         Debug.Log("try reset");
 
         if (checkIfAllSnakesAreDead())
         {
-
+            gameRoundHasEndet();
 
             for (int x = 0; x < with; x++)
             {

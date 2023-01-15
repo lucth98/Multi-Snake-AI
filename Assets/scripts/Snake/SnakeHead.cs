@@ -7,6 +7,16 @@ public class SnakeHead : SnakePart
 {
     private SnakeAI AI;
 
+    public override void hasWon()
+    {
+        AI.winnGameReward();
+    }
+
+    public override void hasLost()
+    {
+        AI.loseGameReward();
+    }
+
     public override void aiEndEpisode()
     {
         if (AI != null)
