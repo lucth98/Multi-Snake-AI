@@ -95,6 +95,12 @@ public class SnakeAI : Agent
         lastDistanceToInceaseToken = newDistance;
     }
 
+    public override void Heuristic(in ActionBuffers actions)
+    {
+       
+
+    }
+
 
 
     public override void OnEpisodeBegin()

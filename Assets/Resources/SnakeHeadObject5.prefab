@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Height: 150
   m_Grayscale: 1
   m_ObservationType: 0
+  m_RuntimeCameraEnable: 1
   m_ObservationStacks: 2
   m_Compression: 1
 --- !u!114 &149879964912898912
@@ -179,4 +180,5 @@ MonoBehaviour:
   TeamId: 5
   m_UseChildSensors: 1
   m_UseChildActuators: 1
+  m_DeterministicInference: 0
   m_ObservableAttributeHandling: 0
