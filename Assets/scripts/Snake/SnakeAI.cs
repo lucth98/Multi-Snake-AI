@@ -150,10 +150,10 @@ public class SnakeAI : Agent
         }
         else
         {
-            SetReward(-1);
+            newReward = -1;
         }
 
-        SetReward(reward);
+        SetReward(newReward);
     }
 
 
