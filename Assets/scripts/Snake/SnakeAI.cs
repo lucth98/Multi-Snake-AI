@@ -15,6 +15,8 @@ public class SnakeAI : Agent
     private SnakeHead head;
     private Snake snake;
 
+    private int length = 1;
+
 
     private float lastDistanceToInceaseToken = 0.0f;
 
@@ -119,21 +121,23 @@ public class SnakeAI : Agent
         //Hier wird mit den sensor daten an die AI zu verbeiten geschickt
 
         //Anz an Elementen
-        float snakeLenght = (float)snake.getSnakeLenght();
+        float snakeLenght = (float)length;
         sensor.AddObservation(snakeLenght);
+
+        // distanz zum token
+        sensor.AddObservation(lastDistanceToInceaseToken);
     }
 
     public void endAIEpisode()
     {
         setEndReward();
-        Debug.Log("ende reward= "+GetCumulativeReward()+" length= "+ snake.getSnakeLenght());
+        Debug.Log("ende reward= "+GetCumulativeReward()+" length= "+ length);
         EndEpisode();
     }
 
     private void setEndReward()
     {
         float reward = GetCumulativeReward();
-        int length = snake.getSnakeLenght();
         float newReward = 0;
 
         if(length > 1)
@@ -164,6 +168,7 @@ public class SnakeAI : Agent
     public void snakeIncreaseReward()
     {
         SetReward(1.0f);
+        length++;
         // Testen: Vieleicht rewart erhöhen mit länge zb rewart = länge der Schlange
     }
 
