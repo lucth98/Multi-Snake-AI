@@ -86,7 +86,7 @@ public class SnakeAI : Agent
         }
 
         reward *= 0.5f;
-        Debug.Log("Distanz reward="+reward);
+        //Debug.Log("Distanz reward="+reward);
 
         if (newDistance < lastDistanceToInceaseToken)
         {
@@ -123,7 +123,7 @@ public class SnakeAI : Agent
 
     public void endAIEpisode()
     {
-        Debug.Log("ende reward= "+GetCumulativeReward());
+        Debug.Log("ende reward= "+GetCumulativeReward()+" length= "+ snake.getSnakeLenght());
         EndEpisode();
     }
 
