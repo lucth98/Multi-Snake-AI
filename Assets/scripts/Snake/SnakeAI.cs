@@ -30,12 +30,14 @@ public class SnakeAI : Agent
 
     public void enemyDethReward()
     {
+        
       //  AddReward(0.5f);
     }
 
     public void winnGameReward()
     {
-       // AddReward(0.5f);
+        // AddReward(0.5f);
+      
     }
 
     public void loseGameReward()
@@ -72,30 +74,30 @@ public class SnakeAI : Agent
     private void distanceToTokenRewart()
     {
         float newDistance = calculateDistanz();
-        float reward = 0;
+        float reward = 0.1f;
 
-        if (newDistance > 1)
-        {
+        //if (newDistance > 1)
+        //{
 
 
-            reward = 1 / newDistance;
-        }
-        else
-        {
-            reward = 1;
-        }
+        //    reward = 1 / newDistance;
+        //}
+        //else
+        //{
+        //    reward = 1;
+        //}
 
-        reward *= 0.5f;
+        //reward *= 0.3f;
         //Debug.Log("Distanz reward="+reward);
 
         if (newDistance < lastDistanceToInceaseToken)
         {
          
-            AddReward(reward);
+            SetReward(reward);
         }
         else
         {
-            AddReward(-reward);
+            SetReward(-reward);
         }
 
         lastDistanceToInceaseToken = newDistance;
@@ -127,18 +129,40 @@ public class SnakeAI : Agent
         EndEpisode();
     }
 
+    private void setEndReward()
+    {
+        float reward = GetCumulativeReward();
+        int length = snake.getSnakeLenght();
+        float newReward = 0;
+
+        if(length > 1)
+        {
+            newReward = length * 0.1f;
+            if(newReward > 1)
+            {
+                newReward = 1;
+            }
+        }
+        else
+        {
+            SetReward(-1);
+        }
+
+        SetReward(reward);
+    }
+
 
     public void aiDeath()
     {
         //AI punishment for Dying
 
-        AddReward(-1.0f);
+        SetReward(-1.0f);
         // Testen: Vieleicht straffe erhöhen mit länge zb strafe = -länge der Schlange -50
     }
 
     public void snakeIncreaseReward()
     {
-        AddReward(1.0f);
+        SetReward(1.0f);
         // Testen: Vieleicht rewart erhöhen mit länge zb rewart = länge der Schlange
     }
 
