@@ -125,6 +125,7 @@ public class SnakeAI : Agent
 
     public void endAIEpisode()
     {
+        setEndReward();
         Debug.Log("ende reward= "+GetCumulativeReward()+" length= "+ snake.getSnakeLenght());
         EndEpisode();
     }
