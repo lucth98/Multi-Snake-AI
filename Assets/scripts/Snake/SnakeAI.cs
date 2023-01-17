@@ -74,22 +74,28 @@ public class SnakeAI : Agent
         float newDistance = calculateDistanz();
         float reward = 0;
 
+        if (newDistance > 1)
+        {
+
+
+            reward = 1 / newDistance;
+        }
+        else
+        {
+            reward = 1;
+        }
+
+        reward *= 0.5f;
+        Debug.Log("Distanz reward="+reward);
+
         if (newDistance < lastDistanceToInceaseToken)
         {
-            if (newDistance > 1)
-            {
-
-
-                reward = 1 / newDistance;
-            }else
-            {
-                reward = 1;
-            }
+         
             AddReward(reward);
         }
         else
         {
-            AddReward(-0.1f);
+            AddReward(-reward);
         }
 
         lastDistanceToInceaseToken = newDistance;
