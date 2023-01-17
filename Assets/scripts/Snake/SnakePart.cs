@@ -94,7 +94,7 @@ public class SnakePart : MonoBehaviour
 
         this.turns.Add(newTurn);
 
-        Debug.Log(turns.Count);
+       // Debug.Log(turns.Count);
     }
 
 
@@ -285,9 +285,9 @@ public class SnakePart : MonoBehaviour
         if (turns.Count != 0)
         {
             Vector2 turnPos = turns[0].positionOfTurn.getPostion();
-            Debug.Log("make informet turn");
+            //Debug.Log("make informet turn");
 
-            Debug.Log("Ziel:" + turnPos + " pos" + x + " " + y);
+            //Debug.Log("Ziel:" + turnPos + " pos" + x + " " + y);
             if (turnPos.x == this.x && turnPos.y == this.y)  //check ob sich im neuen Feld eine Trhung stafinden soll
             {
                 turn(turns[0].turnType);

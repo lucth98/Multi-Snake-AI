@@ -101,11 +101,9 @@ public class SnakeAI : Agent
 
     }
 
-
-
     public override void OnEpisodeBegin()
     {
-
+        
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -115,13 +113,11 @@ public class SnakeAI : Agent
         //Anz an Elementen
         float snakeLenght = (float)snake.getSnakeLenght();
         sensor.AddObservation(snakeLenght);
-
-
-
     }
 
     public void endAIEpisode()
     {
+        Debug.Log("ende reward= "+GetCumulativeReward());
         EndEpisode();
     }
 

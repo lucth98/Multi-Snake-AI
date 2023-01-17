@@ -50,7 +50,7 @@ public class snakeMoveFunction : MonoBehaviour
 
     public void startMovment()
     {
-        Debug.Log("start");
+      //  Debug.Log("start");
         move = true;
     }
 
