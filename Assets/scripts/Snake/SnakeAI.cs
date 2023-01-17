@@ -30,17 +30,17 @@ public class SnakeAI : Agent
 
     public void enemyDethReward()
     {
-        AddReward(0.5f);
+      //  AddReward(0.5f);
     }
 
     public void winnGameReward()
     {
-        AddReward(0.5f);
+       // AddReward(0.5f);
     }
 
     public void loseGameReward()
     {
-        AddReward(-0.5f);
+      //  AddReward(-0.5f);
     }
 
     private float calculateDistanz()
@@ -126,7 +126,7 @@ public class SnakeAI : Agent
     {
         //AI punishment for Dying
 
-        AddReward(-1);
+        AddReward(-1.0f);
         // Testen: Vieleicht straffe erhöhen mit länge zb strafe = -länge der Schlange -50
     }
 
