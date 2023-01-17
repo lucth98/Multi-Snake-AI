@@ -132,6 +132,7 @@ public class SnakeAI : Agent
     {
         setEndReward();
         Debug.Log("ende reward= "+GetCumulativeReward()+" length= "+ length);
+        length = 1;
         EndEpisode();
     }
 
