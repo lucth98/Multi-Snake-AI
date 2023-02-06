@@ -7,6 +7,10 @@ public class SnakeHead : SnakePart
 {
     private SnakeAI AI;
 
+    public override void Heuristic(int value)
+    {
+        AI.heuristicValue = value;
+    }
     public override void hasWon()
     {
         AI.winnGameReward();

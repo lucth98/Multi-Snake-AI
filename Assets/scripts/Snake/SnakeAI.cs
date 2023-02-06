@@ -18,7 +18,13 @@ public class SnakeAI : Agent
     private int length = 1;
 
 
+    public KeyCode buttonTurnLeft = KeyCode.A;
+    public KeyCode buttonTurnRight = KeyCode.D;
+
     private float lastDistanceToInceaseToken = 0.0f;
+
+
+    public int heuristicValue { get;  set; }
 
     private void init()
     {
@@ -107,7 +113,24 @@ public class SnakeAI : Agent
 
     public override void Heuristic(in ActionBuffers actions)
     {
-       
+
+        Debug.Log("Heuristic");
+        var discreteActions = actions.DiscreteActions;
+        discreteActions[0] = heuristicValue;
+        heuristicValue = 0;
+        
+       /*
+
+        if (Input.GetKey(buttonTurnLeft))
+        {
+            Debug.Log("Heuristic Left");
+            discreteActions[0] = 1;
+        }
+        if (Input.GetKey(buttonTurnRight))
+        {
+            Debug.Log("Heuristic right");
+            discreteActions[0] = 2;
+        }*/
 
     }
 

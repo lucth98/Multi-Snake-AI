@@ -78,6 +78,18 @@ public class Snake : MonoBehaviour
 
             }
         }
+        else
+        {
+            if (Input.GetKeyDown(buttonTurnLeft))
+            {
+                snake[0].Heuristic(1);
+            }
+            if (Input.GetKeyDown(buttonTurnRight))
+            {
+                snake[0].Heuristic(2);
+
+            }
+        }
     }
 
     public void addPartToList(SnakePart part)

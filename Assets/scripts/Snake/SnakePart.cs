@@ -256,6 +256,11 @@ public class SnakePart : MonoBehaviour
         //impletaion in sub clases (snake head)
     }
 
+    public virtual void Heuristic(int value)
+    {
+        //impletaion in sub clases (snake head)
+    }
+
     public void movedToPositonCallBack(int newX, int newY)  //wird von snakemove gerufen wenn eine bewegug fertig ist
     {
         this.x = newX;
