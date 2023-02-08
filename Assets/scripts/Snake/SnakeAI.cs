@@ -102,10 +102,12 @@ public class SnakeAI : Agent
         {
          
             SetReward(reward);
+            Debug.Log("distanze reward= "+reward);
         }
         else
         {
             SetReward(-reward);
+            Debug.Log("distanze reward= " + (-reward));
         }
 
         lastDistanceToInceaseToken = newDistance;
@@ -114,13 +116,12 @@ public class SnakeAI : Agent
     public override void Heuristic(in ActionBuffers actions)
     {
 
-        Debug.Log("Heuristic");
+    //    Debug.Log("Heuristic");
         var discreteActions = actions.DiscreteActions;
         discreteActions[0] = heuristicValue;
         heuristicValue = 0;
         
        /*
-
         if (Input.GetKey(buttonTurnLeft))
         {
             Debug.Log("Heuristic Left");
@@ -154,7 +155,10 @@ public class SnakeAI : Agent
     public void endAIEpisode()
     {
         setEndReward();
-        Debug.Log("ende reward= "+GetCumulativeReward()+" length= "+ length);
+
+        Debug.Log(" ");
+        Debug.Log("!!!!!!!!!!!!!!!!!!!!11 ");
+         Debug.Log(" Cumulative ende reward= " + GetCumulativeReward()+" length= "+ length);
         length = 1;
         EndEpisode();
     }
@@ -163,8 +167,8 @@ public class SnakeAI : Agent
     {
         float reward = GetCumulativeReward();
         float newReward = 0;
-
-        if(length > 1)
+        Debug.Log("Length= " + length);
+        if (length > 1)
         {
             newReward = length * 0.1f;
             if(newReward > 1)
@@ -177,6 +181,7 @@ public class SnakeAI : Agent
             newReward = -1;
         }
 
+        Debug.Log("End Reward= " + newReward);
         SetReward(newReward);
     }
 
@@ -185,12 +190,14 @@ public class SnakeAI : Agent
     {
         //AI punishment for Dying
 
+        Debug.Log("Death Reward= " + -1);
         SetReward(-1.0f);
         // Testen: Vieleicht straffe erhöhen mit länge zb strafe = -länge der Schlange -50
     }
 
     public void snakeIncreaseReward()
     {
+        Debug.Log("Increase Reward= " + 1);
         SetReward(1.0f);
         length++;
         // Testen: Vieleicht rewart erhöhen mit länge zb rewart = länge der Schlange
@@ -206,17 +213,17 @@ public class SnakeAI : Agent
 
         if (movmentAction == 0)
         {
-            Debug.Log("go Straight ahead");
+          //  Debug.Log("go Straight ahead");
             return;
         }
         if (movmentAction == 1)
         {
-            Debug.Log("turn left");
+           // Debug.Log("turn left");
             snake.makeAITurn(false);
         }
         if (movmentAction == 2)
         {
-            Debug.Log("turn right");
+           // Debug.Log("turn right");
             snake.makeAITurn(true);
         }
     }
