@@ -35,3 +35,11 @@ behaviors:
       save_steps: 20000
       swap_steps: 10000
       team_change: 100000
+    behavioral_cloning:
+      demo_path:  Assets/Demonstrations
+      strength: 1.0
+      steps: 0
+      batch_size: 1000
+      num_epoch: 3
+      samples_per_update: 0
+
