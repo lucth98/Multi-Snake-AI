@@ -24,7 +24,7 @@ public class SnakeAI : Agent
     private float lastDistanceToInceaseToken = 0.0f;
 
 
-    public int heuristicValue { get;  set; }
+    public int heuristicValue { get; set; }
 
     private void init()
     {
@@ -38,19 +38,19 @@ public class SnakeAI : Agent
 
     public void enemyDethReward()
     {
-        
-      //  AddReward(0.5f);
+
+        //  AddReward(0.5f);
     }
 
     public void winnGameReward()
     {
         // AddReward(0.5f);
-      
+
     }
 
     public void loseGameReward()
     {
-      //  AddReward(-0.5f);
+        //  AddReward(-0.5f);
     }
 
     private float calculateDistanz()
@@ -100,9 +100,9 @@ public class SnakeAI : Agent
 
         if (newDistance < lastDistanceToInceaseToken)
         {
-         
+
             SetReward(reward);
-            Debug.Log("distanze reward= "+reward);
+            Debug.Log("distanze reward= " + reward);
         }
         else
         {
@@ -116,28 +116,28 @@ public class SnakeAI : Agent
     public override void Heuristic(in ActionBuffers actions)
     {
 
-    //    Debug.Log("Heuristic");
+        //    Debug.Log("Heuristic");
         var discreteActions = actions.DiscreteActions;
         discreteActions[0] = heuristicValue;
         heuristicValue = 0;
-        
-       /*
-        if (Input.GetKey(buttonTurnLeft))
-        {
-            Debug.Log("Heuristic Left");
-            discreteActions[0] = 1;
-        }
-        if (Input.GetKey(buttonTurnRight))
-        {
-            Debug.Log("Heuristic right");
-            discreteActions[0] = 2;
-        }*/
+
+        /*
+         if (Input.GetKey(buttonTurnLeft))
+         {
+             Debug.Log("Heuristic Left");
+             discreteActions[0] = 1;
+         }
+         if (Input.GetKey(buttonTurnRight))
+         {
+             Debug.Log("Heuristic right");
+             discreteActions[0] = 2;
+         }*/
 
     }
 
     public override void OnEpisodeBegin()
     {
-        
+
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -158,23 +158,30 @@ public class SnakeAI : Agent
 
         Debug.Log(" ");
         Debug.Log("!!!!!!!!!!!!!!!!!!!!11 ");
-         Debug.Log(" Cumulative ende reward= " + GetCumulativeReward()+" length= "+ length);
+        Debug.Log(" Cumulative ende reward= " + GetCumulativeReward() + " length= " + length);
         length = 1;
         EndEpisode();
     }
 
     private void setEndReward()
     {
-        float reward = GetCumulativeReward();
         float newReward = 0;
         Debug.Log("Length= " + length);
-        if (length > 1)
+        //if (length > 1)
+        //{
+        //    newReward = length * 0.1f;
+        //    if(newReward > 1)
+        //    {
+        //        newReward = 1;
+        //    }
+        //}
+        if (length > 3)
         {
-            newReward = length * 0.1f;
-            if(newReward > 1)
-            {
-                newReward = 1;
-            }
+            newReward = 1;
+        }
+        else if (length > 1)
+        {
+            newReward = 0;
         }
         else
         {
@@ -213,17 +220,17 @@ public class SnakeAI : Agent
 
         if (movmentAction == 0)
         {
-          //  Debug.Log("go Straight ahead");
+            //  Debug.Log("go Straight ahead");
             return;
         }
         if (movmentAction == 1)
         {
-           // Debug.Log("turn left");
+            // Debug.Log("turn left");
             snake.makeAITurn(false);
         }
         if (movmentAction == 2)
         {
-           // Debug.Log("turn right");
+            // Debug.Log("turn right");
             snake.makeAITurn(true);
         }
     }
