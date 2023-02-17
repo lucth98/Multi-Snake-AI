@@ -137,7 +137,7 @@ public class SnakeAI : Agent
 
     public override void OnEpisodeBegin()
     {
-        //test
+       
     }
 
     public override void CollectObservations(VectorSensor sensor)
