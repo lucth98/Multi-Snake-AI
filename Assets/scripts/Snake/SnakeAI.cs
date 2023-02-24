@@ -102,12 +102,12 @@ public class SnakeAI : Agent
         {
 
             SetReward(reward);
-            Debug.Log("distanze reward= " + reward);
+            //Debug.Log("distanze reward= " + reward);
         }
         else
         {
             SetReward(-reward);
-            Debug.Log("distanze reward= " + (-reward));
+            //Debug.Log("distanze reward= " + (-reward));
         }
 
         lastDistanceToInceaseToken = newDistance;
@@ -156,8 +156,8 @@ public class SnakeAI : Agent
     {
         setEndReward();
 
-        Debug.Log(" ");
-        Debug.Log("!!!!!!!!!!!!!!!!!!!!11 ");
+        //Debug.Log(" ");
+        //Debug.Log("!!!!!!!!!!!!!!!!!!!!11 ");
         Debug.Log(" Cumulative ende reward= " + GetCumulativeReward() + " length= " + length);
         length = 1;
         EndEpisode();
@@ -188,7 +188,7 @@ public class SnakeAI : Agent
             newReward = -1;
         }
 
-        Debug.Log("End Reward= " + newReward);
+        //Debug.Log("End Reward= " + newReward);
         SetReward(newReward);
     }
 
@@ -204,7 +204,7 @@ public class SnakeAI : Agent
 
     public void snakeIncreaseReward()
     {
-        Debug.Log("Increase Reward= " + 1);
+        //Debug.Log("Increase Reward= " + 1);
         SetReward(1.0f);
         length++;
         // Testen: Vieleicht rewart erhöhen mit länge zb rewart = länge der Schlange
