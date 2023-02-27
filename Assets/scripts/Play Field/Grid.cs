@@ -297,8 +297,8 @@ public class Grid : MonoBehaviour
         int sizeOfLargestSnake = getSizeOfLargestSnake();
         int sizeOfSmalestSnake = getSizeOfSmallestSnake();
 
-        Debug.Log("winner size = " + sizeOfLargestSnake);
-        Debug.Log("loser size = " + sizeOfSmalestSnake);
+        //Debug.Log("winner size = " + sizeOfLargestSnake);
+        //Debug.Log("loser size = " + sizeOfSmalestSnake);
 
         for(int i = 0; i < snakes.Length; i++)
         {

@@ -153,6 +153,11 @@ public class SnakeAI : Agent
 
         // distanz zum token
         sensor.AddObservation(lastDistanceToInceaseToken);
+
+
+        sensor.AddObservation( grid.increaseList[0].getX());
+        sensor.AddObservation(grid.increaseList[0].getY());
+
     }
 
     public void endAIEpisode()
@@ -169,7 +174,7 @@ public class SnakeAI : Agent
     private void setEndReward()
     {
         float newReward = 0;
-        Debug.Log("Length= " + length);
+       // Debug.Log("Length= " + length);
         //if (length > 1)
         //{
         //    newReward = length * 0.1f;
@@ -200,7 +205,7 @@ public class SnakeAI : Agent
     {
         //AI punishment for Dying
 
-        Debug.Log("Death Reward= " + -1);
+        //Debug.Log("Death Reward= " + -1);
         SetReward(-1.0f);
         // Testen: Vieleicht straffe erhöhen mit länge zb strafe = -länge der Schlange -50
     }
