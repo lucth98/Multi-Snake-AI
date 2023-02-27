@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.MLAgents;
-using Unity.MLAgents.Sensors;
-using Unity.MLAgents.Actuators;
+using Unity.MLAgents.Sensors.Reflection;
 
 public class Snake : MonoBehaviour
 {
+    [Observable]
     private List<SnakePart> snake = new List<SnakePart>();
 
     private KeyCode buttonTurnLeft = KeyCode.A;

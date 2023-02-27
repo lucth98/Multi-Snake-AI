@@ -5,6 +5,7 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
+using Unity.MLAgents.Sensors.Reflection;
 
 //Multi Snake
 public class SnakeAI : Agent
@@ -13,6 +14,8 @@ public class SnakeAI : Agent
     private Grid grid;
 
     private SnakeHead head;
+
+    [Observable]         
     private Snake snake;
 
     private int length = 1;

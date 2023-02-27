@@ -2,11 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.MLAgents.Sensors.Reflection;
 
 public class SnakePart : MonoBehaviour
 {
+
+    [Observable]
     public int x { get; set; }
+
+    [Observable]
     public int y { get; set; }
+
+
     public SnakePart nextElement { get; set; }
     public Direction direction { get; set; }
     public Snake snake { get; set; }
