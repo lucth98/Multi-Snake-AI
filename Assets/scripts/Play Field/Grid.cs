@@ -31,7 +31,20 @@ public class Grid : MonoBehaviour
 
     public List<IncreaseSizeToken> increaseList { get; private set; }
 
+    public int getDiagonalLenght()
+    {
+        double result = 0;
 
+        result = height*height + with*with;
+        result = Math.Sqrt(result);
+
+        return (int)result;
+    }
+
+    public IncreaseSizeToken getFirstToken()
+    {
+        return increaseList[0];
+    }
     public void drawGrid()
     {
         for (int x = 0; x < with; x++)

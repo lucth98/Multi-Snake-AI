@@ -12,10 +12,7 @@ public class SnakeAI : Agent
 {
     private CameraSensorComponent cameraSensor;
     private Grid grid;
-
     private SnakeHead head;
-
-  
     private Snake snake;
 
     private int length = 1;
@@ -37,6 +34,9 @@ public class SnakeAI : Agent
         grid = snake.getGrid();
 
         cameraSensor.Camera = Camera.main;
+
+
+        
     }
 
     public void enemyDethReward()
@@ -143,24 +143,35 @@ public class SnakeAI : Agent
        
     }
 
+    private Vector2 vector2valueNormalization(Vector2 value , float min ,float max)
+    {
+        Vector2 result = value;
+        value.x = valueNormalization(result.x, min ,max);
+        value.y = valueNormalization(result.y, min ,max);
+
+        return result;
+    }
+
+    private float valueNormalization(float value, float min , float max)
+    {
+        return (value - min) / (max - min);
+    }
+
     public override void CollectObservations(VectorSensor sensor)
     {
         //Hier wird mit den sensor daten an die AI  geschickt
 
         //Anz an Elementen
-        float snakeLenght = (float)length;
-        sensor.AddObservation(snakeLenght);
+        sensor.AddObservation(valueNormalization((float)length, 0, 100));
 
         //snake position
-        sensor.AddObservation(snake.getHeadX());
-        sensor.AddObservation(snake.getHeadY());
+        sensor.AddObservation(vector2valueNormalization(snake.getHeatPositionVector(), 0, grid.height));
 
         // distanz zum token
-        sensor.AddObservation(lastDistanceToInceaseToken);
+        sensor.AddObservation(valueNormalization(lastDistanceToInceaseToken, 0, grid.getDiagonalLenght()));
 
-        sensor.AddObservation( grid.increaseList[0].getX());
-        sensor.AddObservation(grid.increaseList[0].getY());
-
+        //Token psoition
+        sensor.AddObservation(vector2valueNormalization(grid.getFirstToken().getPostionVector(), 0, grid.height));
     }
 
     public void endAIEpisode()

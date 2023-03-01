@@ -209,6 +209,16 @@ public class Snake : MonoBehaviour
         snake[0].hasLost();
     }
 
+    public Vector2 getHeatPositionVector()
+    {
+        Vector2 result = new Vector2();
+
+        result.x = getHeadX();
+        result.y = getHeadY();  
+
+        return result;
+    }
+
     public int getHeadX()
     {
         return snake[0].x;
