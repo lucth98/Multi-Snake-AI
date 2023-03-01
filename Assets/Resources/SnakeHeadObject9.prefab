@@ -130,6 +130,8 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 5000
+  buttonTurnLeft: 97
+  buttonTurnRight: 100
 --- !u!114 &4587739893115485212
 MonoBehaviour:
   m_ObjectHideFlags: 0

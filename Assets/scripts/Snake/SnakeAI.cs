@@ -15,7 +15,7 @@ public class SnakeAI : Agent
 
     private SnakeHead head;
 
-    [Observable]         
+  
     private Snake snake;
 
     private int length = 1;
@@ -145,15 +145,18 @@ public class SnakeAI : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        //Hier wird mit den sensor daten an die AI zu verbeiten geschickt
+        //Hier wird mit den sensor daten an die AI  geschickt
 
         //Anz an Elementen
         float snakeLenght = (float)length;
         sensor.AddObservation(snakeLenght);
 
+        //snake position
+        sensor.AddObservation(snake.getHeadX());
+        sensor.AddObservation(snake.getHeadY());
+
         // distanz zum token
         sensor.AddObservation(lastDistanceToInceaseToken);
-
 
         sensor.AddObservation( grid.increaseList[0].getX());
         sensor.AddObservation(grid.increaseList[0].getY());

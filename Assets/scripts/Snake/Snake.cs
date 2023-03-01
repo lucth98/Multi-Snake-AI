@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.MLAgents.Sensors.Reflection;
 
 public class Snake : MonoBehaviour
 {
-    [Observable]
+
     private List<SnakePart> snake = new List<SnakePart>();
 
     private KeyCode buttonTurnLeft = KeyCode.A;
@@ -210,6 +209,15 @@ public class Snake : MonoBehaviour
         snake[0].hasLost();
     }
 
+    public int getHeadX()
+    {
+        return snake[0].x;
+    }
+
+    public int getHeadY()
+    {
+        return snake[0].y;
+    }
 
     // Start is called before the first frame update
     void Start()

@@ -2,15 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.MLAgents.Sensors.Reflection;
 
 public class SnakePart : MonoBehaviour
 {
 
-    [Observable]
+
     public int x { get; set; }
 
-    [Observable]
     public int y { get; set; }
 
 

@@ -130,6 +130,8 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 5000
+  buttonTurnLeft: 97
+  buttonTurnRight: 100
 --- !u!114 &-6249192095283352680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 2
+    VectorObservationSize: 6
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
