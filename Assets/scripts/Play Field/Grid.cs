@@ -240,7 +240,7 @@ public class Grid : MonoBehaviour
 
     private void addTokens()
     {
-        increase = Resources.Load<IncreaseSizeToken>("IncreasSizeObject");
+      
 
         increaseList = new List<IncreaseSizeToken>();
 
@@ -380,6 +380,7 @@ public class Grid : MonoBehaviour
         }
 
         tile = Resources.Load<Tile>("TileObject");
+        increase = Resources.Load<IncreaseSizeToken>("IncreasSizeObject");
         field = new Tile[height, with];
         moveCamera();
         init();

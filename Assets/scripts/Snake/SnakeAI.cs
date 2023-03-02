@@ -119,22 +119,12 @@ public class SnakeAI : Agent
     public override void Heuristic(in ActionBuffers actions)
     {
 
-        //    Debug.Log("Heuristic");
+       
         var discreteActions = actions.DiscreteActions;
         discreteActions[0] = heuristicValue;
         heuristicValue = 0;
 
-        /*
-         if (Input.GetKey(buttonTurnLeft))
-         {
-             Debug.Log("Heuristic Left");
-             discreteActions[0] = 1;
-         }
-         if (Input.GetKey(buttonTurnRight))
-         {
-             Debug.Log("Heuristic right");
-             discreteActions[0] = 2;
-         }*/
+        
 
     }
 
@@ -146,8 +136,8 @@ public class SnakeAI : Agent
     private Vector2 vector2valueNormalization(Vector2 value , float min ,float max)
     {
         Vector2 result = value;
-        value.x = valueNormalization(result.x, min ,max);
-        value.y = valueNormalization(result.y, min ,max);
+        result.x = valueNormalization(result.x, min ,max);
+        result.y = valueNormalization(result.y, min ,max);
 
         return result;
     }
@@ -162,16 +152,28 @@ public class SnakeAI : Agent
         //Hier wird mit den sensor daten an die AI  geschickt
 
         //Anz an Elementen
-        sensor.AddObservation(valueNormalization((float)length, 0, 100));
+        float lengthOfSnake = valueNormalization((float)length, 0, 100);
+        sensor.AddObservation(lengthOfSnake);
+        //Debug.Log("Length Snake:");
+        //Debug.Log(lengthOfSnake);
 
         //snake position
-        sensor.AddObservation(vector2valueNormalization(snake.getHeatPositionVector(), 0, grid.height));
+        Vector2 snakePos = vector2valueNormalization(snake.getHeatPositionVector(), 0, grid.height);
+        sensor.AddObservation(snakePos);
+        //Debug.Log("Snake Pos:");
+        //Debug.Log(snakePos); ;
 
         // distanz zum token
-        sensor.AddObservation(valueNormalization(lastDistanceToInceaseToken, 0, grid.getDiagonalLenght()));
+        float distanceToken = valueNormalization(lastDistanceToInceaseToken, 0, grid.getDiagonalLenght());
+        sensor.AddObservation(distanceToken);
+        //Debug.Log("Distance Token:");
+        //Debug.Log(distanceToken); 
 
         //Token psoition
-        sensor.AddObservation(vector2valueNormalization(grid.getFirstToken().getPostionVector(), 0, grid.height));
+        Vector2 tokenPos = vector2valueNormalization(grid.getFirstToken().getPostionVector(), 0, grid.height);
+        sensor.AddObservation(tokenPos);
+        //Debug.Log("Token Pos:");
+        //Debug.Log(tokenPos); 
     }
 
     public void endAIEpisode()
@@ -242,17 +244,17 @@ public class SnakeAI : Agent
 
         if (movmentAction == 0)
         {
-            //  Debug.Log("go Straight ahead");
+            //  Fährt gerade
             return;
         }
         if (movmentAction == 1)
         {
-            // Debug.Log("turn left");
+            // Linksdrehung
             snake.makeAITurn(false);
         }
         if (movmentAction == 2)
         {
-            // Debug.Log("turn right");
+            // Rechtsdrehung
             snake.makeAITurn(true);
         }
     }
