@@ -43,6 +43,7 @@ public class Tile : MonoBehaviour
         isBarrier = true;
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.color = Color.black;
+        gameObject.tag = "End";
     }
 
     public bool isThisBarrier()

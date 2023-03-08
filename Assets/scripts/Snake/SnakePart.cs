@@ -343,6 +343,7 @@ public class SnakePart : MonoBehaviour
         snakeBodypre = Resources.Load<SnakeBody>("SnakeBodyObject");
         snakeMove = GetComponent<snakeMoveFunction>();
         snakeMove.snakePart = this;
+        gameObject.tag = "Snake";
     }
 
 

@@ -28,12 +28,12 @@ public class SnakeAI : Agent
 
     private void init()
     {
-        cameraSensor = GetComponent<CameraSensorComponent>();
+       // cameraSensor = GetComponent<CameraSensorComponent>();
         head = GetComponent<SnakeHead>();
         snake = head.snake;
         grid = snake.getGrid();
 
-        cameraSensor.Camera = Camera.main;
+     //   cameraSensor.Camera = Camera.main;
 
 
         
