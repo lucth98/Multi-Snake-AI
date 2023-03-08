@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5678991795864666278}
   - component: {fileID: 2236047586183493837}
   - component: {fileID: 4127923036261258633}
-  - component: {fileID: 7629908814238655308}
+  - component: {fileID: -5414781659998040469}
   m_Layer: 0
   m_Name: SnakeHeadObject1
   m_TagString: Untagged
@@ -180,7 +180,7 @@ MonoBehaviour:
   NumStepsToRecord: 0
   DemonstrationName: SingleSnakeDemo
   DemonstrationDirectory: Assets/Demonstrations
---- !u!114 &7629908814238655308
+--- !u!114 &-5414781659998040469
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,16 +194,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SensorName: RayPerceptionSensor
   m_DetectableTags:
-  - Token
-  - Snake
   - End
+  - Token
   m_RaysPerDirection: 8
   m_MaxRayDegrees: 180
-  m_SphereCastRadius: 1
+  m_SphereCastRadius: 0.5
   m_RayLength: 100
   m_RayLayerMask:
     serializedVersion: 2
-    m_Bits: 200
+    m_Bits: 4294967240
   m_ObservationStacks: 1
   m_AlternatingRayOrder: 1
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
