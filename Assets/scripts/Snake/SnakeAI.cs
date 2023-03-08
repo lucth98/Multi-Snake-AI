@@ -41,8 +41,7 @@ public class SnakeAI : Agent
 
     public void enemyDethReward()
     {
-
-        //  AddReward(0.5f);
+        AddReward(0.5f);
     }
 
     public void winnGameReward()
@@ -87,30 +86,13 @@ public class SnakeAI : Agent
         float newDistance = calculateDistanz();
         float reward = 0.1f;
 
-        //if (newDistance > 1)
-        //{
-
-
-        //    reward = 1 / newDistance;
-        //}
-        //else
-        //{
-        //    reward = 1;
-        //}
-
-        //reward *= 0.3f;
-        //Debug.Log("Distanz reward="+reward);
-
         if (newDistance < lastDistanceToInceaseToken)
         {
-
             SetReward(reward);
-            //Debug.Log("distanze reward= " + reward);
         }
         else
         {
             SetReward(-reward);
-            //Debug.Log("distanze reward= " + (-reward));
         }
 
         lastDistanceToInceaseToken = newDistance;
@@ -220,18 +202,13 @@ public class SnakeAI : Agent
     public void aiDeath()
     {
         //AI punishment for Dying
-
-        //Debug.Log("Death Reward= " + -1);
         SetReward(-1.0f);
-        // Testen: Vieleicht straffe erhöhen mit länge zb strafe = -länge der Schlange -50
     }
 
     public void snakeIncreaseReward()
     {
-        //Debug.Log("Increase Reward= " + 1);
         SetReward(1.0f);
         length++;
-        // Testen: Vieleicht rewart erhöhen mit länge zb rewart = länge der Schlange
     }
 
 

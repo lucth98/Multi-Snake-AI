@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 3427816600099776576}
   - component: {fileID: 4167424883822010205}
   - component: {fileID: 5678991795864666278}
-  - component: {fileID: 4479144220553202027}
   - component: {fileID: 2236047586183493837}
   - component: {fileID: 4127923036261258633}
+  - component: {fileID: 7629908814238655308}
   m_Layer: 0
   m_Name: SnakeHeadObject1
   m_TagString: Untagged
@@ -133,27 +133,6 @@ MonoBehaviour:
   MaxStep: 5000
   buttonTurnLeft: 97
   buttonTurnRight: 100
---- !u!114 &4479144220553202027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6749913527485478339}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 282f342c2ab144bf38be65d4d0c4e07d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Camera: {fileID: 0}
-  m_SensorName: CameraSensor
-  m_Width: 150
-  m_Height: 150
-  m_Grayscale: 1
-  m_ObservationType: 0
-  m_RuntimeCameraEnable: 1
-  m_ObservationStacks: 2
-  m_Compression: 1
 --- !u!114 &2236047586183493837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,3 +180,28 @@ MonoBehaviour:
   NumStepsToRecord: 0
   DemonstrationName: SingleSnakeDemo
   DemonstrationDirectory: Assets/Demonstrations
+--- !u!114 &7629908814238655308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6749913527485478339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f67c7e722ba14acd9153bb4488bff6e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: RayPerceptionSensor
+  m_DetectableTags: []
+  m_RaysPerDirection: 3
+  m_MaxRayDegrees: 70
+  m_SphereCastRadius: 0.5
+  m_RayLength: 20
+  m_RayLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967291
+  m_ObservationStacks: 1
+  m_AlternatingRayOrder: 1
+  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
+  rayMissColor: {r: 1, g: 1, b: 1, a: 1}

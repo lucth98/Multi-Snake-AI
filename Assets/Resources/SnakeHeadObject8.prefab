@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 4041256793692986173}
   - component: {fileID: 3337952887128173600}
   - component: {fileID: 6433590383598973915}
-  - component: {fileID: 3003475727242197526}
   - component: {fileID: 616827962850806704}
+  - component: {fileID: 5198186798616313349}
   m_Layer: 0
   m_Name: SnakeHeadObject8
   m_TagString: Untagged
@@ -132,27 +132,6 @@ MonoBehaviour:
   MaxStep: 5000
   buttonTurnLeft: 97
   buttonTurnRight: 100
---- !u!114 &3003475727242197526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5344614121817376446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 282f342c2ab144bf38be65d4d0c4e07d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Camera: {fileID: 0}
-  m_SensorName: CameraSensor
-  m_Width: 150
-  m_Height: 150
-  m_Grayscale: 1
-  m_ObservationType: 0
-  m_RuntimeCameraEnable: 1
-  m_ObservationStacks: 2
-  m_Compression: 1
 --- !u!114 &616827962850806704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,3 +163,28 @@ MonoBehaviour:
   m_UseChildActuators: 1
   m_DeterministicInference: 0
   m_ObservableAttributeHandling: 0
+--- !u!114 &5198186798616313349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5344614121817376446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f67c7e722ba14acd9153bb4488bff6e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: RayPerceptionSensor
+  m_DetectableTags: []
+  m_RaysPerDirection: 3
+  m_MaxRayDegrees: 70
+  m_SphereCastRadius: 0.5
+  m_RayLength: 20
+  m_RayLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967291
+  m_ObservationStacks: 1
+  m_AlternatingRayOrder: 1
+  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
+  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
