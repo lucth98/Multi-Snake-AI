@@ -26,6 +26,7 @@ public class IncreaseSizeToken : Token
     void Start()
     {
         gameObject.tag = "Token";
+        gameObject.layer = 6;
     }
 
     // Update is called once per frame

@@ -36,6 +36,11 @@ public class Tile : MonoBehaviour
             }
             
         }
+
+        Vector3 currentPosition = transform.position;
+        currentPosition.z = 1;
+        transform.position = currentPosition;
+
     }
 
     public void makeBarrier()
@@ -44,6 +49,7 @@ public class Tile : MonoBehaviour
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.color = Color.black;
         gameObject.tag = "End";
+        gameObject.layer = 3;
     }
 
     public bool isThisBarrier()

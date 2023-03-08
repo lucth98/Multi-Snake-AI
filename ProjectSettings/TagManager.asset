@@ -7,15 +7,16 @@ TagManager:
   - End
   - Snake
   - Token
+  - UI
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Border
   - Water
   - UI
-  - 
-  - 
+  - Token
+  - Snake
   - 
   - 
   - 
@@ -43,4 +44,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: 
+    uniqueID: 3258045187
+    locked: 0
+  - name: 
+    uniqueID: 1507278621
+    locked: 0
+  - name: 
+    uniqueID: 3504089449
     locked: 0

@@ -133,7 +133,7 @@ public class Snake : MonoBehaviour
            
             snakeHeadpre = Resources.Load<SnakeHead>(nameOfPrefap);
         }
-        SnakeHead head = Instantiate(snakeHeadpre, new Vector3(x, y, -2), Quaternion.identity);
+        SnakeHead head = Instantiate(snakeHeadpre, new Vector3(x, y, 0), Quaternion.identity);
         head.direction = SnakePart.Direction.right;
         head.grid = grid;
         head.snake = this;
