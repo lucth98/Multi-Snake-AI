@@ -15,7 +15,7 @@ behaviors:
       shared_critic: false
     network_settings:
       normalize: false
-      hidden_units: 256
+      hidden_units: 512
       num_layers: 3
       vis_encode_type: nature_cnn
     reward_signals:
