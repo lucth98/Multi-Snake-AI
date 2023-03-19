@@ -78,11 +78,11 @@ public class Snake : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(buttonTurnLeft))
+            if (Input.GetKey(buttonTurnLeft))
             {
                 snake[0].Heuristic(1);
             }
-            if (Input.GetKeyDown(buttonTurnRight))
+            if (Input.GetKey(buttonTurnRight))
             {
                 snake[0].Heuristic(2);
 
