@@ -86,6 +86,16 @@ public class SnakeAI : Agent
         float newDistance = calculateDistanz();
         float reward = 0.1f;
 
+
+        if(newDistance > 1)
+        {
+            reward = 1/newDistance;
+        }
+        else
+        {
+            reward = 1;
+        }
+
         if (newDistance < lastDistanceToInceaseToken)
         {
             SetReward(reward);
@@ -129,34 +139,34 @@ public class SnakeAI : Agent
         return (value - min) / (max - min);
     }
 
-    public override void CollectObservations(VectorSensor sensor)
-    {
-        //Hier wird mit den sensor daten an die AI  geschickt
+    //public override void CollectObservations(VectorSensor sensor)
+    //{
+    //    ////Hier wird mit den sensor daten an die AI  geschickt
 
-        //Anz an Elementen
-        float lengthOfSnake = valueNormalization((float)length, 0, 100);
-        sensor.AddObservation(lengthOfSnake);
-        //Debug.Log("Length Snake:");
-        //Debug.Log(lengthOfSnake);
+    //    ////Anz an Elementen
+    //    //float lengthOfSnake = valueNormalization((float)length, 0, 100);
+    //    //sensor.AddObservation(lengthOfSnake);
+    //    ////Debug.Log("Length Snake:");
+    //    ////Debug.Log(lengthOfSnake);
 
-        //snake position
-        Vector2 snakePos = vector2valueNormalization(snake.getHeatPositionVector(), 0, grid.height);
-        sensor.AddObservation(snakePos);
-        //Debug.Log("Snake Pos:");
-        //Debug.Log(snakePos); ;
+    //    ////snake position
+    //    //Vector2 snakePos = vector2valueNormalization(snake.getHeatPositionVector(), 0, grid.height);
+    //    //sensor.AddObservation(snakePos);
+    //    ////Debug.Log("Snake Pos:");
+    //    ////Debug.Log(snakePos); ;
 
-        // distanz zum token
-        float distanceToken = valueNormalization(lastDistanceToInceaseToken, 0, grid.getDiagonalLenght());
-        sensor.AddObservation(distanceToken);
-        //Debug.Log("Distance Token:");
-        //Debug.Log(distanceToken); 
+    //    //// distanz zum token
+    //    //float distanceToken = valueNormalization(lastDistanceToInceaseToken, 0, grid.getDiagonalLenght());
+    //    //sensor.AddObservation(distanceToken);
+    //    ////Debug.Log("Distance Token:");
+    //    ////Debug.Log(distanceToken); 
 
-        //Token psoition
-        Vector2 tokenPos = vector2valueNormalization(grid.getFirstToken().getPostionVector(), 0, grid.height);
-        sensor.AddObservation(tokenPos);
-        //Debug.Log("Token Pos:");
-        //Debug.Log(tokenPos); 
-    }
+    //    ////Token psoition
+    //    //Vector2 tokenPos = vector2valueNormalization(grid.getFirstToken().getPostionVector(), 0, grid.height);
+    //    //sensor.AddObservation(tokenPos);
+    //    ////Debug.Log("Token Pos:");
+    //    ////Debug.Log(tokenPos); 
+    //}
 
     public void endAIEpisode()
     {
