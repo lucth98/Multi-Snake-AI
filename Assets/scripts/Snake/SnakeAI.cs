@@ -17,6 +17,8 @@ public class SnakeAI : Agent
 
     private int length = 1;
 
+    private List<Vector2> previosPositions = new List<Vector2>();
+
 
     public KeyCode buttonTurnLeft = KeyCode.A;
     public KeyCode buttonTurnRight = KeyCode.D;
@@ -54,6 +56,42 @@ public class SnakeAI : Agent
     {
         //  AddReward(-0.5f);
     }
+
+    private bool cheackIfAgentMakeLoops()
+    {
+        bool result = false;
+        Vector2 currentPositon = snake.getHeadPosition();
+        if (previosPositions.Count != 0)
+        {
+            if (previosPositions[0] == currentPositon)
+            {
+                result = true;
+            }
+        }
+
+        previosPositions.Add(currentPositon);
+
+        if(previosPositions.Count > 4)
+        {
+            previosPositions.RemoveAt(0);
+        }
+
+
+        return result;
+    }
+
+
+    private void loopPunishment()
+    {
+
+        if (cheackIfAgentMakeLoops())
+        {
+            SetReward(-0.5f);
+            Debug.Log("Loop dedected");
+        }
+
+    }
+    
 
     private float calculateDistanz()
     {
@@ -116,7 +154,7 @@ public class SnakeAI : Agent
         discreteActions[0] = heuristicValue;
         heuristicValue = 0;
 
-        
+        Debug.Log("reward summ= " + GetCumulativeReward());
 
     }
 
@@ -182,15 +220,7 @@ public class SnakeAI : Agent
     private void setEndReward()
     {
         float newReward = 0;
-       // Debug.Log("Length= " + length);
-        //if (length > 1)
-        //{
-        //    newReward = length * 0.1f;
-        //    if(newReward > 1)
-        //    {
-        //        newReward = 1;
-        //    }
-        //}
+      
         if (length > 3)
         {
             newReward = 1;
@@ -225,8 +255,9 @@ public class SnakeAI : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
+        loopPunishment();
         distanceToTokenRewart();
-
+       
         int movmentAction = actions.DiscreteActions[0];
 
         if (movmentAction == 0)
