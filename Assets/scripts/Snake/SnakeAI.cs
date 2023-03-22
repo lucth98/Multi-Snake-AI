@@ -125,14 +125,16 @@ public class SnakeAI : Agent
         float reward = 0.1f;
 
 
-        if(newDistance > 1)
-        {
-            reward = 1/newDistance;
-        }
-        else
-        {
-            reward = 1;
-        }
+        //if(newDistance > 1)
+        //{
+        //    reward = 1/newDistance;
+        //}
+        //else
+        //{
+        //    reward = 1;
+        //}
+
+        //reward *= 0.5f;
 
         if (newDistance < lastDistanceToInceaseToken)
         {
