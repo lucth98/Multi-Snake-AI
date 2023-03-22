@@ -18,7 +18,7 @@ public class SnakeAI : Agent
     private int length = 1;
 
     private List<Vector2> previosPositions = new List<Vector2>();
-
+    private List<int> previosTurns = new List<int>();
 
     public KeyCode buttonTurnLeft = KeyCode.A;
     public KeyCode buttonTurnRight = KeyCode.D;
@@ -30,15 +30,15 @@ public class SnakeAI : Agent
 
     private void init()
     {
-       // cameraSensor = GetComponent<CameraSensorComponent>();
+        // cameraSensor = GetComponent<CameraSensorComponent>();
         head = GetComponent<SnakeHead>();
         snake = head.snake;
         grid = snake.getGrid();
 
-     //   cameraSensor.Camera = Camera.main;
+        //   cameraSensor.Camera = Camera.main;
 
 
-        
+
     }
 
     public void enemyDethReward()
@@ -57,23 +57,44 @@ public class SnakeAI : Agent
         //  AddReward(-0.5f);
     }
 
-    private bool cheackIfAgentMakeLoops()
+    private bool cheackIfAgentMakeLoops(int turn)
     {
         bool result = false;
-        Vector2 currentPositon = snake.getHeadPosition();
-        if (previosPositions.Count != 0)
+        //Vector2 currentPositon = snake.getHeadPosition();
+        //if (previosPositions.Count != 0)
+        //{
+        //    if (previosPositions[0] == currentPositon)
+        //    {
+        //        result = true;
+        //    }
+        //}
+
+        //previosPositions.Add(currentPositon);
+
+        //if(previosPositions.Count > 4)
+        //{
+        //    previosPositions.RemoveAt(0);
+        //}
+        if (previosTurns.Count > 1)
         {
-            if (previosPositions[0] == currentPositon)
+            if (turn == 1 || turn == 2)
             {
-                result = true;
+                if (previosTurns[previosTurns.Count - 1] == turn)
+                {
+                    if (previosTurns[previosTurns.Count - 2] == turn)
+                    {
+                        result = true;
+                    }
+
+                }
             }
         }
 
-        previosPositions.Add(currentPositon);
+        previosTurns.Add(turn);
 
-        if(previosPositions.Count > 4)
+        if (previosTurns.Count > 3)
         {
-            previosPositions.RemoveAt(0);
+            previosTurns.RemoveAt(0);
         }
 
 
@@ -81,17 +102,17 @@ public class SnakeAI : Agent
     }
 
 
-    private void loopPunishment()
+    private void loopPunishment(int turn)
     {
 
-        if (cheackIfAgentMakeLoops())
+        if (cheackIfAgentMakeLoops(turn))
         {
-            SetReward(-0.5f);
+            SetReward(-0.8f);
             Debug.Log("Loop dedected");
         }
 
     }
-    
+
 
     private float calculateDistanz()
     {
@@ -151,7 +172,7 @@ public class SnakeAI : Agent
     public override void Heuristic(in ActionBuffers actions)
     {
 
-       
+
         var discreteActions = actions.DiscreteActions;
         discreteActions[0] = heuristicValue;
         heuristicValue = 0;
@@ -162,19 +183,19 @@ public class SnakeAI : Agent
 
     public override void OnEpisodeBegin()
     {
-       
+
     }
 
-    private Vector2 vector2valueNormalization(Vector2 value , float min ,float max)
+    private Vector2 vector2valueNormalization(Vector2 value, float min, float max)
     {
         Vector2 result = value;
-        result.x = valueNormalization(result.x, min ,max);
-        result.y = valueNormalization(result.y, min ,max);
+        result.x = valueNormalization(result.x, min, max);
+        result.y = valueNormalization(result.y, min, max);
 
         return result;
     }
 
-    private float valueNormalization(float value, float min , float max)
+    private float valueNormalization(float value, float min, float max)
     {
         return (value - min) / (max - min);
     }
@@ -222,7 +243,7 @@ public class SnakeAI : Agent
     private void setEndReward()
     {
         float newReward = 0;
-      
+
         if (length > 3)
         {
             newReward = 1;
@@ -257,10 +278,12 @@ public class SnakeAI : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        loopPunishment();
-        distanceToTokenRewart();
-       
         int movmentAction = actions.DiscreteActions[0];
+
+        loopPunishment(movmentAction);
+        distanceToTokenRewart();
+
+
 
         if (movmentAction == 0)
         {
