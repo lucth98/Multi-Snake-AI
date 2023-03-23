@@ -177,7 +177,7 @@ public class SnakePart : MonoBehaviour
             return;
         }
 
-        makeAIDessison();
+        //makeAIDessison();
 
         int targedX = x;
         int targedY = y;

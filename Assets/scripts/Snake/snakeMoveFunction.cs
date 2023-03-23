@@ -86,7 +86,7 @@ public class snakeMoveFunction : MonoBehaviour
 
         if (Vector2.Distance(transform.position, targedVector) < 0.01f)
         {
-
+            snakePart.makeAIDessison();
            // Debug.Log("target reached");
             transform.position = targedVector;
 
