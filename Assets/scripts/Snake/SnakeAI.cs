@@ -275,15 +275,22 @@ public class SnakeAI : Agent
     {
         //AI punishment for Dying
         SetReward(-1.0f);
+
+        resetDistanzToToken();
     }
 
     public void snakeIncreaseReward()
     {
         SetReward(1.0f);
         length++;
+
+        resetDistanzToToken();
     }
 
-
+    private void resetDistanzToToken()
+    {
+        lastDistanceToInceaseToken = grid.getDiagonalLenght() + 1;
+    }
 
     public override void OnActionReceived(ActionBuffers actions)
     {
