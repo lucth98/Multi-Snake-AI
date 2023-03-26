@@ -97,7 +97,6 @@ public class SnakeAI : Agent
             previosTurns.RemoveAt(0);
         }
 
-
         return result;
     }
 
@@ -107,8 +106,8 @@ public class SnakeAI : Agent
 
         if (cheackIfAgentMakeLoops(turn))
         {
-            SetReward(-0.8f);
-            Debug.Log("Loop dedected");
+            AddReward(-0.8f);
+           
         }
 
     }
@@ -145,25 +144,13 @@ public class SnakeAI : Agent
         float newDistance = calculateDistanz();
         float reward = 0.1f;
 
-
-        //if(newDistance > 1)
-        //{
-        //    reward = 1/newDistance;
-        //}
-        //else
-        //{
-        //    reward = 1;
-        //}
-
-        //reward *= 0.5f;
-
         if (newDistance < lastDistanceToInceaseToken)
         {
-            SetReward(reward);
+            AddReward(reward);
         }
         else
         {
-            SetReward(-reward);
+            AddReward(-reward);
         }
 
         lastDistanceToInceaseToken = newDistance;
@@ -171,14 +158,9 @@ public class SnakeAI : Agent
 
     public override void Heuristic(in ActionBuffers actions)
     {
-
-
         var discreteActions = actions.DiscreteActions;
         discreteActions[0] = heuristicValue;
         heuristicValue = 0;
-
-        Debug.Log("reward summ= " + GetCumulativeReward());
-
     }
 
     public override void OnEpisodeBegin()
@@ -242,9 +224,6 @@ public class SnakeAI : Agent
     {
         setEndReward();
 
-        //Debug.Log(" ");
-        //Debug.Log("!!!!!!!!!!!!!!!!!!!!11 ");
-        Debug.Log(" Cumulative ende reward= " + GetCumulativeReward() + " length= " + length);
         length = 1;
         EndEpisode();
     }
@@ -266,7 +245,6 @@ public class SnakeAI : Agent
             newReward = -1;
         }
 
-        //Debug.Log("End Reward= " + newReward);
         SetReward(newReward);
     }
 
@@ -281,10 +259,12 @@ public class SnakeAI : Agent
 
     public void snakeIncreaseReward()
     {
-        SetReward(1.0f);
+
+        AddReward(1.0f);
         length++;
 
         resetDistanzToToken();
+        testOutput("Increase ");
     }
 
     private void resetDistanzToToken()
@@ -294,12 +274,11 @@ public class SnakeAI : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
+        testOutput("Action ");
         int movmentAction = actions.DiscreteActions[0];
 
         loopPunishment(movmentAction);
         distanceToTokenRewart();
-
-
 
         if (movmentAction == 0)
         {
@@ -328,5 +307,10 @@ public class SnakeAI : Agent
     void Update()
     {
 
+    }
+
+    private void testOutput(string message)
+    {
+        Debug.Log(message + "cul. Reward= "+ GetCumulativeReward());
     }
 }
