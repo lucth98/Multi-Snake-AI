@@ -217,6 +217,13 @@ public class SnakeAI : Agent
             sensor.AddObservation(valueNormalization(previosTurns[1], 0, 3));
             sensor.AddObservation(valueNormalization(previosTurns[2], 0, 3));
         }
+        else
+        {
+            sensor.AddObservation(0);
+            sensor.AddObservation(0);
+            sensor.AddObservation(0);
+
+        }
 
     }
 
