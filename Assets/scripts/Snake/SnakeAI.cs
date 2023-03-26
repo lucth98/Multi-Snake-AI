@@ -18,7 +18,7 @@ public class SnakeAI : Agent
 
     private int length = 1;
 
-   // private List<Vector2> previosPositions = new List<Vector2>();
+
     private List<int> previosTurns = new List<int>();
 
     public KeyCode buttonTurnLeft = KeyCode.A;
@@ -230,31 +230,31 @@ public class SnakeAI : Agent
 
     public void endAIEpisode()
     {
-        setEndReward();
+        //setEndReward();
 
         length = 1;
-        EndEpisode();
+        //EndEpisode();
     }
 
-    private void setEndReward()
-    {
-        float newReward = 0;
+    //private void setEndReward()
+    //{
+    //    float newReward = 0;
 
-        if (length > 3)
-        {
-            newReward = 1;
-        }
-        else if (length > 1)
-        {
-            newReward = 0;
-        }
-        else
-        {
-            newReward = -1;
-        }
+    //    if (length > 3)
+    //    {
+    //        newReward = 1;
+    //    }
+    //    else if (length > 1)
+    //    {
+    //        newReward = 0;
+    //    }
+    //    else
+    //    {
+    //        newReward = -1;
+    //    }
 
-        SetReward(newReward);
-    }
+    //    SetReward(newReward);
+    //}
 
 
     public void aiDeath()
@@ -263,16 +263,19 @@ public class SnakeAI : Agent
         SetReward(-1.0f);
 
         resetDistanzToToken();
+        EndEpisode();
     }
 
     public void snakeIncreaseReward()
     {
 
-        AddReward(1.0f);
+        SetReward(1.0f);
         length++;
 
         resetDistanzToToken();
-        testOutput("Increase ");
+
+        EndEpisode();
+
     }
 
     private void resetDistanzToToken()
