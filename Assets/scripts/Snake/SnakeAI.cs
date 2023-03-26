@@ -231,8 +231,14 @@ public class SnakeAI : Agent
     public void endAIEpisode()
     {
         //setEndReward();
+        Debug.Log("");
+        Debug.Log("Ende der Spielrunde länge= " + length);
 
+        Debug.Log("----------------------------------------------------------------");
+        Debug.Log("");
+        Debug.Log("");
         length = 1;
+
         //EndEpisode();
     }
 
