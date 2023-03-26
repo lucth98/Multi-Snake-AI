@@ -10,6 +10,7 @@ using Unity.MLAgents.Sensors.Reflection;
 //Multi Snake
 public class SnakeAI : Agent
 {
+    //test
     private CameraSensorComponent cameraSensor;
     private Grid grid;
     private SnakeHead head;
