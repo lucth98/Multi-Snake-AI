@@ -238,7 +238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 25
   with: 25
-  numberOfSnakes: 1
+  numberOfSnakes: 2
   numberOfIncreaseSizeTokens: 1
   enabelHumanPlayer: 0
   color: 0
