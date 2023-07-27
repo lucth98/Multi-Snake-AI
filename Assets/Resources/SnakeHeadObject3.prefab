@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 6258543571161601106}
   - component: {fileID: 512580937526897721}
   - component: {fileID: 6540965367545143508}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SnakeHeadObject3
-  m_TagString: Untagged
+  m_TagString: Head3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
-  m_BehaviorName: SnakeA-Behavior
+  m_BehaviorName: SnakeC-Behavior
   TeamId: 3
   m_UseChildSensors: 1
   m_UseChildActuators: 1
@@ -180,13 +180,22 @@ MonoBehaviour:
   - End
   - Token
   - Snake
+  - Head2
+  - Head1
+  - Head4
+  - Head5
+  - Head6
+  - Head7
+  - Head8
+  - Head9
+  - Head10
   m_RaysPerDirection: 8
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.5
   m_RayLength: 100
   m_RayLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967240
+    m_Bits: 4294966216
   m_ObservationStacks: 1
   m_AlternatingRayOrder: 1
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}

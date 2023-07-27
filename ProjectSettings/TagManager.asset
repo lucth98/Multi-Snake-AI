@@ -8,6 +8,16 @@ TagManager:
   - Snake
   - Token
   - UI
+  - Head1
+  - Head2
+  - Head3
+  - Head4
+  - Head5
+  - Head6
+  - Head7
+  - Head8
+  - Head9
+  - Head10
   layers:
   - Default
   - TransparentFX
@@ -17,16 +27,16 @@ TagManager:
   - UI
   - Token
   - Snake
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Head1
+  - Head2
+  - Head3
+  - Head4
+  - Head5
+  - Head6
+  - Head7
+  - Head8
+  - Head9
+  - Head10
   - 
   - 
   - 

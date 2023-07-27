@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 6040354684820908811}
   - component: {fileID: 149879964912898912}
   - component: {fileID: 5409972538095980560}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SnakeHeadObject5
-  m_TagString: Untagged
+  m_TagString: Head5
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -180,6 +180,15 @@ MonoBehaviour:
   - End
   - Token
   - Snake
+  - Head2
+  - Head3
+  - Head4
+  - Head1
+  - Head6
+  - Head7
+  - Head8
+  - Head9
+  - Head10
   m_RaysPerDirection: 8
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.5
