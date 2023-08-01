@@ -1,12 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.MLAgents;
-using Unity.MLAgents.Sensors;
-using Unity.MLAgents.Actuators;
 
 public class Snake : MonoBehaviour
 {
+
     private List<SnakePart> snake = new List<SnakePart>();
 
     private KeyCode buttonTurnLeft = KeyCode.A;
@@ -80,11 +78,11 @@ public class Snake : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(buttonTurnLeft))
+            if (Input.GetKey(buttonTurnLeft))
             {
                 snake[0].Heuristic(1);
             }
-            if (Input.GetKeyDown(buttonTurnRight))
+            if (Input.GetKey(buttonTurnRight))
             {
                 snake[0].Heuristic(2);
 
@@ -135,7 +133,7 @@ public class Snake : MonoBehaviour
            
             snakeHeadpre = Resources.Load<SnakeHead>(nameOfPrefap);
         }
-        SnakeHead head = Instantiate(snakeHeadpre, new Vector3(x, y, -2), Quaternion.identity);
+        SnakeHead head = Instantiate(snakeHeadpre, new Vector3(x, y, 0), Quaternion.identity);
         head.direction = SnakePart.Direction.right;
         head.grid = grid;
         head.snake = this;
@@ -211,6 +209,25 @@ public class Snake : MonoBehaviour
         snake[0].hasLost();
     }
 
+    public Vector2 getHeatPositionVector()
+    {
+        Vector2 result = new Vector2();
+
+        result.x = getHeadX();
+        result.y = getHeadY();  
+
+        return result;
+    }
+
+    public int getHeadX()
+    {
+        return snake[0].x;
+    }
+
+    public int getHeadY()
+    {
+        return snake[0].y;
+    }
 
     // Start is called before the first frame update
     void Start()

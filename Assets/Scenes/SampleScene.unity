@@ -236,9 +236,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1365dd697c15ecc4d98c6b7fc8081d41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 60
-  with: 60
-  numberOfSnakes: 1
+  height: 25
+  with: 25
+  numberOfSnakes: 2
   numberOfIncreaseSizeTokens: 1
   enabelHumanPlayer: 0
   color: 0

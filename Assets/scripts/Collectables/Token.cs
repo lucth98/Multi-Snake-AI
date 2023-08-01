@@ -16,6 +16,26 @@ public class Token : MonoBehaviour
 
     }
 
+    public int getX()
+    {
+        return (int)transform.position.x;
+    }
+
+    public int getY()
+    {
+        return (int)transform.position.y;
+    }
+
+    public Vector2 getPostionVector()
+    {
+        Vector2 result = new Vector2();
+        result.x = (int)transform.position.x;
+        result.y = (int)transform.position.y;
+
+        return result;
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {

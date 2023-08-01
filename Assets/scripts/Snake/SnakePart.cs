@@ -5,8 +5,13 @@ using UnityEngine;
 
 public class SnakePart : MonoBehaviour
 {
+
+
     public int x { get; set; }
+
     public int y { get; set; }
+
+
     public SnakePart nextElement { get; set; }
     public Direction direction { get; set; }
     public Snake snake { get; set; }
@@ -101,7 +106,7 @@ public class SnakePart : MonoBehaviour
     private void addBodyToCordinates(int x, int y)
     {
         //TODo shau ob neues Body Part im Spielfelt liegt
-        SnakeBody newBodyPart = Instantiate(snakeBodypre, new Vector3(x, y, -2), Quaternion.identity);
+        SnakeBody newBodyPart = Instantiate(snakeBodypre, new Vector3(x, y, 0), Quaternion.identity);
 
         nextElement = newBodyPart;
 
@@ -172,7 +177,7 @@ public class SnakePart : MonoBehaviour
             return;
         }
 
-        makeAIDessison();
+        //makeAIDessison();
 
         int targedX = x;
         int targedY = y;
@@ -338,13 +343,18 @@ public class SnakePart : MonoBehaviour
         snakeBodypre = Resources.Load<SnakeBody>("SnakeBodyObject");
         snakeMove = GetComponent<snakeMoveFunction>();
         snakeMove.snakePart = this;
+        //gameObject.tag = "Snake";
+        //gameObject.layer = 7;
     }
 
 
     public void teleportPart(Vector2 vector)
     {
+        Vector3 vector3d = vector;
+        vector3d.z = 0;
+
         positonTile.snake = null;
-        transform.position = vector;
+        transform.position = vector3d;
 
         positonTile = grid.getTile((int)vector.x, (int)vector.y);
 

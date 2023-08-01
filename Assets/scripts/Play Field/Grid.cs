@@ -31,20 +31,36 @@ public class Grid : MonoBehaviour
 
     public List<IncreaseSizeToken> increaseList { get; private set; }
 
+    public int getDiagonalLenght()
+    {
+        double result = 0;
 
+        result = height * height + with * with;
+        result = Math.Sqrt(result);
+
+        return (int)result;
+    }
+
+    public IncreaseSizeToken getFirstToken()
+    {
+        return increaseList[0];
+    }
     public void drawGrid()
     {
         for (int x = 0; x < with; x++)
         {
             for (int y = 0; y < height; y++)
             {
-                var newTile = Instantiate(tile, new Vector3(x, y, 1), Quaternion.identity);
+                var newTile = Instantiate(tile, new Vector3(x, y, 0), Quaternion.identity);
 
                 newTile.name = "Tile Pos: X=" + x + " Y=" + y;
 
                 newTile.color = color;
 
-                newTile.setCollor((x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0));
+                if (y != 0 && y != height - 1 && x != 0 && x != with - 1)
+                {
+                    newTile.setCollor((x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0));
+                }
 
                 field[y, x] = newTile;
             }
@@ -150,15 +166,15 @@ public class Grid : MonoBehaviour
 
         for (int i = 0; i < numberOfSnakes; i++)
         {
-            
+
 
             Vector2 position = getFreePostion();
 
             snakes[i] = new Snake();
-            snakes[i].teamID = i+1;
+            snakes[i].teamID = i + 1;
             snakes[i].isAI = true;
             snakes[i].init((int)position.x, (int)position.y, this);
-        
+
 
         }
 
@@ -196,7 +212,7 @@ public class Grid : MonoBehaviour
 
     public void addIncreaseToken()
     {
-        Debug.Log("add increse Token");
+        //Debug.Log("add increse Token");
         System.Random random = new System.Random();
 
         int tokenX = 0;
@@ -212,7 +228,7 @@ public class Grid : MonoBehaviour
         } while (tokenTile.token != null);
 
 
-        IncreaseSizeToken newToken = Instantiate(increase, new Vector3(tokenX, tokenY, -1), Quaternion.identity);
+        IncreaseSizeToken newToken = Instantiate(increase, new Vector3(tokenX, tokenY, 0), Quaternion.identity);
         newToken.grid = this;
         tokenTile.token = newToken;
         newToken.tile = tokenTile;
@@ -227,7 +243,7 @@ public class Grid : MonoBehaviour
 
     private void addTokens()
     {
-        increase = Resources.Load<IncreaseSizeToken>("IncreasSizeObject");
+
 
         increaseList = new List<IncreaseSizeToken>();
 
@@ -253,12 +269,12 @@ public class Grid : MonoBehaviour
     {
         int sizeOfSnake = snakes[0].getSize();
 
-        for(int i = 0; i < snakes.Length; i++)
+        for (int i = 0; i < snakes.Length; i++)
         {
-            if(snakes[i].getSize() != sizeOfSnake)
+            if (snakes[i].getSize() != sizeOfSnake)
             {
                 return false;
-            } 
+            }
         }
         return true;
     }
@@ -267,9 +283,9 @@ public class Grid : MonoBehaviour
     {
         int size = snakes[0].getSize();
 
-        for(int i = 0; i < snakes.Length; i++)
+        for (int i = 0; i < snakes.Length; i++)
         {
-            if(snakes[i].getSize() > size)
+            if (snakes[i].getSize() > size)
             {
                 size = snakes[i].getSize();
             }
@@ -297,17 +313,17 @@ public class Grid : MonoBehaviour
         int sizeOfLargestSnake = getSizeOfLargestSnake();
         int sizeOfSmalestSnake = getSizeOfSmallestSnake();
 
-        Debug.Log("winner size = " + sizeOfLargestSnake);
-        Debug.Log("loser size = " + sizeOfSmalestSnake);
+        //Debug.Log("winner size = " + sizeOfLargestSnake);
+        //Debug.Log("loser size = " + sizeOfSmalestSnake);
 
-        for(int i = 0; i < snakes.Length; i++)
+        for (int i = 0; i < snakes.Length; i++)
         {
-            if(snakes[i].getSize() == sizeOfLargestSnake)
+            if (snakes[i].getSize() == sizeOfLargestSnake)
             {
                 snakes[i].hasWonRound();
             }
 
-            if(snakes[i].getSize() == sizeOfSmalestSnake)
+            if (snakes[i].getSize() == sizeOfSmalestSnake)
             {
                 snakes[i].hasLostRound();
             }
@@ -324,7 +340,7 @@ public class Grid : MonoBehaviour
 
     public void reset()
     {
-        Debug.Log("try reset");
+        //Debug.Log("try reset");
 
         if (checkIfAllSnakesAreDead())
         {
@@ -361,12 +377,13 @@ public class Grid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(numberOfSnakes > 10)
+        if (numberOfSnakes > 10)
         {
             numberOfSnakes = 10;
         }
 
         tile = Resources.Load<Tile>("TileObject");
+        increase = Resources.Load<IncreaseSizeToken>("IncreasSizeObject");
         field = new Tile[height, with];
         moveCamera();
         init();

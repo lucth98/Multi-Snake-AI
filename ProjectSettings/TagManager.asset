@@ -3,26 +3,40 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - End
+  - Snake
+  - Token
+  - UI
+  - Head1
+  - Head2
+  - Head3
+  - Head4
+  - Head5
+  - Head6
+  - Head7
+  - Head8
+  - Head9
+  - Head10
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Border
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Token
+  - Snake
+  - Head1
+  - Head2
+  - Head3
+  - Head4
+  - Head5
+  - Head6
+  - Head7
+  - Head8
+  - Head9
+  - Head10
   - 
   - 
   - 
@@ -40,4 +54,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: 
+    uniqueID: 3258045187
+    locked: 0
+  - name: 
+    uniqueID: 1507278621
+    locked: 0
+  - name: 
+    uniqueID: 3504089449
     locked: 0

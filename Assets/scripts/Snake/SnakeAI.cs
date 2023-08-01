@@ -5,18 +5,21 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
+using Unity.MLAgents.Sensors.Reflection;
 
 //Multi Snake
 public class SnakeAI : Agent
 {
+    //test
     private CameraSensorComponent cameraSensor;
     private Grid grid;
-
     private SnakeHead head;
     private Snake snake;
 
     private int length = 1;
 
+
+    private List<int> previosTurns = new List<int>();
 
     public KeyCode buttonTurnLeft = KeyCode.A;
     public KeyCode buttonTurnRight = KeyCode.D;
@@ -28,18 +31,20 @@ public class SnakeAI : Agent
 
     private void init()
     {
-        cameraSensor = GetComponent<CameraSensorComponent>();
+        // cameraSensor = GetComponent<CameraSensorComponent>();
         head = GetComponent<SnakeHead>();
         snake = head.snake;
         grid = snake.getGrid();
 
-        cameraSensor.Camera = Camera.main;
+        //   cameraSensor.Camera = Camera.main;
+
+
+
     }
 
     public void enemyDethReward()
     {
-
-        //  AddReward(0.5f);
+        AddReward(0.5f);
     }
 
     public void winnGameReward()
@@ -52,6 +57,62 @@ public class SnakeAI : Agent
     {
         //  AddReward(-0.5f);
     }
+
+    private bool cheackIfAgentMakeLoops(int turn)
+    {
+        bool result = false;
+        //Vector2 currentPositon = snake.getHeadPosition();
+        //if (previosPositions.Count != 0)
+        //{
+        //    if (previosPositions[0] == currentPositon)
+        //    {
+        //        result = true;
+        //    }
+        //}
+
+        //previosPositions.Add(currentPositon);
+
+        //if(previosPositions.Count > 4)
+        //{
+        //    previosPositions.RemoveAt(0);
+        //}
+        if (previosTurns.Count > 1)
+        {
+            if (turn == 1 || turn == 2)
+            {
+                if (previosTurns[previosTurns.Count - 1] == turn)
+                {
+                    if (previosTurns[previosTurns.Count - 2] == turn)
+                    {
+                        result = true;
+                    }
+
+                }
+            }
+        }
+
+        previosTurns.Add(turn);
+
+        if (previosTurns.Count > 3)
+        {
+            previosTurns.RemoveAt(0);
+        }
+
+        return result;
+    }
+
+
+    private void loopPunishment(int turn)
+    {
+
+        if (cheackIfAgentMakeLoops(turn))
+        {
+            AddReward(-0.8f);
+
+        }
+
+    }
+
 
     private float calculateDistanz()
     {
@@ -84,30 +145,25 @@ public class SnakeAI : Agent
         float newDistance = calculateDistanz();
         float reward = 0.1f;
 
-        //if (newDistance > 1)
-        //{
 
-
-        //    reward = 1 / newDistance;
-        //}
-        //else
-        //{
-        //    reward = 1;
-        //}
-
-        //reward *= 0.3f;
-        //Debug.Log("Distanz reward="+reward);
-
-        if (newDistance < lastDistanceToInceaseToken)
+        if (newDistance > 1)
         {
-
-            SetReward(reward);
-            Debug.Log("distanze reward= " + reward);
+            reward = 1 / newDistance;
         }
         else
         {
-            SetReward(-reward);
-            Debug.Log("distanze reward= " + (-reward));
+            reward = 1;
+        }
+
+
+        if (newDistance < lastDistanceToInceaseToken)
+        {
+            reward = reward * 0.5f;
+            AddReward(reward);
+        }
+        else
+        {
+            AddReward(-reward);
         }
 
         lastDistanceToInceaseToken = newDistance;
@@ -115,122 +171,157 @@ public class SnakeAI : Agent
 
     public override void Heuristic(in ActionBuffers actions)
     {
-
-        //    Debug.Log("Heuristic");
         var discreteActions = actions.DiscreteActions;
         discreteActions[0] = heuristicValue;
         heuristicValue = 0;
-
-        /*
-         if (Input.GetKey(buttonTurnLeft))
-         {
-             Debug.Log("Heuristic Left");
-             discreteActions[0] = 1;
-         }
-         if (Input.GetKey(buttonTurnRight))
-         {
-             Debug.Log("Heuristic right");
-             discreteActions[0] = 2;
-         }*/
-
     }
 
     public override void OnEpisodeBegin()
     {
-        //test
+
+    }
+
+    private Vector2 vector2valueNormalization(Vector2 value, float min, float max)
+    {
+        Vector2 result = value;
+        result.x = valueNormalization(result.x, min, max);
+        result.y = valueNormalization(result.y, min, max);
+
+        return result;
+    }
+
+    private float valueNormalization(float value, float min, float max)
+    {
+        return (value - min) / (max - min);
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        //Hier wird mit den sensor daten an die AI zu verbeiten geschickt
+        //Hier wird mit den sensor daten an die AI  geschickt
 
         //Anz an Elementen
-        float snakeLenght = (float)length;
-        sensor.AddObservation(snakeLenght);
+        float lengthOfSnake = valueNormalization((float)length, 0, 100);
+        sensor.AddObservation(lengthOfSnake);
+        //Debug.Log("Length Snake:");
+        //Debug.Log(lengthOfSnake);
+
+        //snake position
+        Vector2 snakePos = vector2valueNormalization(snake.getHeatPositionVector(), 0, grid.height);
+        sensor.AddObservation(snakePos);
+        //Debug.Log("Snake Pos:");
+        //Debug.Log(snakePos); ;
 
         // distanz zum token
-        sensor.AddObservation(lastDistanceToInceaseToken);
+        float distanceToken = valueNormalization(lastDistanceToInceaseToken, 0, grid.getDiagonalLenght());
+        sensor.AddObservation(distanceToken);
+        //Debug.Log("Distance Token:");
+        //Debug.Log(distanceToken); 
+
+        //Token psoition
+        Vector2 tokenPos = vector2valueNormalization(grid.getFirstToken().getPostionVector(), 0, grid.height);
+        sensor.AddObservation(tokenPos);
+        //Debug.Log("Token Pos:");
+        //Debug.Log(tokenPos); 
+        
+
+        if (previosTurns.Count == 3)
+        {
+            sensor.AddObservation(valueNormalization(previosTurns[0], 0, 3));
+            sensor.AddObservation(valueNormalization(previosTurns[1], 0, 3));
+            sensor.AddObservation(valueNormalization(previosTurns[2], 0, 3));
+        }
+        else
+        {
+            sensor.AddObservation(0);
+            sensor.AddObservation(0);
+            sensor.AddObservation(0);
+
+        }
+
     }
 
     public void endAIEpisode()
     {
-        setEndReward();
+        //setEndReward();
+        Debug.Log("");
+        Debug.Log("Ende der Spielrunde länge= " + length);
 
-        Debug.Log(" ");
-        Debug.Log("!!!!!!!!!!!!!!!!!!!!11 ");
-        Debug.Log(" Cumulative ende reward= " + GetCumulativeReward() + " length= " + length);
+        Debug.Log("----------------------------------------------------------------");
+        Debug.Log("");
+        Debug.Log("");
         length = 1;
-        EndEpisode();
+
+        //EndEpisode();
     }
 
-    private void setEndReward()
-    {
-        float newReward = 0;
-        Debug.Log("Length= " + length);
-        //if (length > 1)
-        //{
-        //    newReward = length * 0.1f;
-        //    if(newReward > 1)
-        //    {
-        //        newReward = 1;
-        //    }
-        //}
-        if (length > 3)
-        {
-            newReward = 1;
-        }
-        else if (length > 1)
-        {
-            newReward = 0;
-        }
-        else
-        {
-            newReward = -1;
-        }
+    //private void setEndReward()
+    //{
+    //    float newReward = 0;
 
-        Debug.Log("End Reward= " + newReward);
-        SetReward(newReward);
-    }
+    //    if (length > 3)
+    //    {
+    //        newReward = 1;
+    //    }
+    //    else if (length > 1)
+    //    {
+    //        newReward = 0;
+    //    }
+    //    else
+    //    {
+    //        newReward = -1;
+    //    }
+
+    //    SetReward(newReward);
+    //}
 
 
     public void aiDeath()
     {
         //AI punishment for Dying
-
-        Debug.Log("Death Reward= " + -1);
         SetReward(-1.0f);
-        // Testen: Vieleicht straffe erhöhen mit länge zb strafe = -länge der Schlange -50
+
+        resetDistanzToToken();
+        EndEpisode();
     }
 
     public void snakeIncreaseReward()
     {
-        Debug.Log("Increase Reward= " + 1);
+
         SetReward(1.0f);
         length++;
-        // Testen: Vieleicht rewart erhöhen mit länge zb rewart = länge der Schlange
+
+        resetDistanzToToken();
+
+        EndEpisode();
+
     }
 
-
+    private void resetDistanzToToken()
+    {
+        lastDistanceToInceaseToken = grid.getDiagonalLenght() + 1;
+    }
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        distanceToTokenRewart();
-
+        testOutput("Action ");
         int movmentAction = actions.DiscreteActions[0];
+
+        loopPunishment(movmentAction);
+        distanceToTokenRewart();
 
         if (movmentAction == 0)
         {
-            //  Debug.Log("go Straight ahead");
+            //  Fährt gerade
             return;
         }
         if (movmentAction == 1)
         {
-            // Debug.Log("turn left");
+            // Linksdrehung
             snake.makeAITurn(false);
         }
         if (movmentAction == 2)
         {
-            // Debug.Log("turn right");
+            // Rechtsdrehung
             snake.makeAITurn(true);
         }
     }
@@ -245,5 +336,10 @@ public class SnakeAI : Agent
     void Update()
     {
 
+    }
+
+    private void testOutput(string message)
+    {
+        Debug.Log(message + "cul. Reward= " + GetCumulativeReward());
     }
 }
